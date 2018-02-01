@@ -9,6 +9,9 @@ import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RightArrow from 'material-ui/svg-icons/navigation/chevron-right';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+// Style Modules
+import GeneralStyle from '../styles/GeneralStyle';
+import QueryStyle from '../styles/QueryStyle';
 
 interface DroneObject {
   milestone: any
@@ -18,132 +21,18 @@ class QueryPanel extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.handleChangeMilestoneText = this.handleChangeMilestoneText.bind(this);
     this.handleMilestoneChange = this.handleMilestoneChange.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
+
+    this.milestoneStringValue = '*';
 
     this.state = {
       milestoneInputDisabled: true,
       milestoneIntegerValue: ''
     };
 
-    this.paperStyle = {
-      textAlign: 'center',
-      display: 'inline-block',
-      width: 'calc(100% - 100px)',
-      margin: '50px',
-      backgroundColor: '#7986CB'
-    };
-    this.headerStyle = {
-      width: '100%',
-      height: '50px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      justifyContent: 'space-around'
-
-    };
-    this.globaltext = {
-      color: '#ffffff'
-    }
-    this.titles = {
-      ...this.globaltext,
-      margin: '0',
-      textIndent: '25px'
-    };
-    this.mainTitle = {
-      ...this.titles,
-      fontSize: '12pt'
-    };
-    this.subTitle = {
-      ...this.titles,
-      fontSize: '9pt',
-      fontWeight: '100'
-    };
-    this.internalTitleStyle = {
-      ...this.titles,
-      fontSize: '10pt',
-      fontWeight: '200'
-    };
-
-    this.paperContentWrapStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '50px 25px 25px'
-    };
-
-    this.inputBoxStyle = {
-      border: '1px solid #ffffff',
-      marginBottom: '25px'
-    };
-
-    this.inputBoxTitleRowStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      height: '20px',
-      borderBottom: '1px solid #ffffff'
-    };
-
-    this.inputInternalRowStyle = {
-      padding: '25px'
-    };
-
-    this.doubleRowStyle = {
-      ...this.inputInternalRowStyle,
-      display: 'flex'
-    };
-
-    this.doubleRowInternalWrapStyle = {
-      display: 'flex',
-      alignItems: 'space-between',
-      width: '50%'
-    };
-    this.doubleRowInternalLeftWrapStyle = {
-      ...this.doubleRowInternalWrapStyle,
-      justifyContent: 'space-between'
-    };
-    this.doubleRowInternalRightWrapStyle = {
-      ...this.doubleRowInternalWrapStyle,
-      justifyContent: 'center'
-    };
-
-    this.radioButtonSpacedStyle = {
-      marginBottom: '16px'
-    };
-
-    this.radioLabelStyle = {
-      color: '#ffffff'
-    }
-
-    this.radioIconStyle = {
-      fill: '#ffffff'
-    }
-
-    this.textInputStyle = {
-      color: '#ffffff'
-    }
-
-    this.panelRowStyle = {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center'
-    };
-
-    this.submitRowStyle = {
-      ...this.panelRowStyle,
-      height: '50px',
-      justifyContent: 'center'
-    };
-
-    this.floatingLabelStyle = {
-      color: '#ffffff'
-    };
-    this.underlineFocusStyle = {
-      borderColor: '#FC4482'
-    };
-
-    this.milestoneStringValue = '*';
   }
 
   handleMilestoneChange(evt : any, value : string): void {
@@ -196,40 +85,40 @@ class QueryPanel extends React.Component {
   }
 
   render() {
-    return (<Paper style={this.paperStyle} zDepth={2}>
+    return (<Paper style={QueryStyle.paperStyle} zDepth={2}>
 
-      <div style={this.headerStyle}>
-        <h1 style={this.mainTitle}>
+      <div style={GeneralStyle.headerStyle}>
+        <h1 style={GeneralStyle.mainTitle}>
           Query panel
         </h1>
-        <h2 style={this.subTitle}>
+        <h2 style={GeneralStyle.subTitle}>
           Select "All" to get data related to all drones or type the drone id for a specific drone, then submit your query
         </h2>
       </div>
 
-      <div style={this.paperContentWrapStyle}>
+      <div style={GeneralStyle.paperContentWrapStyle}>
 
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
+        <div style={QueryStyle.inputBoxStyle}>
+          <div style={QueryStyle.inputBoxTitleRowStyle}>
+            <h3 style={QueryStyle.internalTitleStyle}>
               Drone filter
             </h3>
           </div>
-          <div style={this.doubleRowStyle}>
-            <div style={this.doubleRowInternalLeftWrapStyle}>
+          <div style={QueryStyle.doubleRowStyle}>
+            <div style={QueryStyle.doubleRowInternalLeftWrapStyle}>
               <RadioButtonGroup name='milestoneSelection' defaultSelected="all" onChange={this.handleMilestoneChange}>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="all" label="All" style={this.radioButtonSpacedStyle}/>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="number" label="ID" style={this.radioButtonSpacedStyle}/>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="none" label="None"/>
+                <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="all" label="All" style={QueryStyle.radioButtonSpacedStyle}/>
+                <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="number" label="ID" style={QueryStyle.radioButtonSpacedStyle}/>
+                <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="none" label="None"/>
               </RadioButtonGroup>
             </div>
-            <div style={this.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.milestoneInputDisabled} inputStyle={this.textInputStyle} value={this.state.milestoneIntegerValue} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="number" onChange={this.handleChangeMilestoneText}/>
+            <div style={QueryStyle.doubleRowInternalRightWrapStyle}>
+              <TextField disabled={this.state.milestoneInputDisabled} inputStyle={GeneralStyle.globalText} value={this.state.milestoneIntegerValue} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={GeneralStyle.globalText} underlineFocusStyle={QueryStyle.underlineFocusStyle} type="number" onChange={this.handleChangeMilestoneText}/>
             </div>
           </div>
         </div>
 
-        <div style={this.submitRowStyle}>
+        <div style={QueryStyle.submitRowStyle}>
           <div>
             <FloatingActionButton mini={true} secondary={true} onMouseDown={this.validateDetails}>
               <RightArrow/>
