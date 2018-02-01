@@ -595,163 +595,23 @@ class QueryPanel extends React.Component {
       </div>
 
       <div style={this.paperContentWrapStyle}>
+
         <div style={this.inputBoxStyle}>
           <div style={this.inputBoxTitleRowStyle}>
             <h3 style={this.internalTitleStyle}>
-              Milestone filter
+              Drone filter
             </h3>
           </div>
           <div style={this.doubleRowStyle}>
             <div style={this.doubleRowInternalLeftWrapStyle}>
               <RadioButtonGroup name='milestoneSelection' defaultSelected="all" onChange={this.handleMilestoneChange}>
                 <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="all" label="All" style={this.radioButtonSpacedStyle}/>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="number" label="Number" style={this.radioButtonSpacedStyle}/>
+                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="number" label="ID" style={this.radioButtonSpacedStyle}/>
                 <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="none" label="None"/>
               </RadioButtonGroup>
             </div>
             <div style={this.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.milestoneInputDisabled} inputStyle={this.textInputStyle} value={this.state.milestoneIntegerValue} fullWidth={true} hintText="Type the milestone number" floatingLabelText="Milestone nr." floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="number" onChange={this.handleChangeMilestoneText}/>
-            </div>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              State filter
-            </h3>
-          </div>
-          <div style={this.inputInternalRowStyle}>
-            <SelectField labelStyle={this.selectLabelStyle} fullWidth={true} style={this.selectLoginElement} value={this.state.stateInputValue} onChange={this.handleChangeStateInputSelect} floatingLabelText="Selected issue state" floatingLabelStyle={this.floatingLabelStyle} iconStyle={this.selectIconStyle}>
-              <MenuItem value={1} primaryText="Open"/>
-              <MenuItem value={2} primaryText="Closed"/>
-              <MenuItem value={3} primaryText="All"/>
-            </SelectField>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Assignee filter
-            </h3>
-          </div>
-          <div style={this.doubleRowStyle}>
-            <div style={this.doubleRowInternalLeftWrapStyle}>
-              <RadioButtonGroup name='assigneeSelection' defaultSelected="all" onChange={this.handleAssigneeChange}>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="all" label="All" style={this.radioButtonSpacedStyle}/>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="text" label="Text" style={this.radioButtonSpacedStyle}/>
-                <RadioButton labelStyle={this.radioLabelStyle} iconStyle={this.radioIconStyle} value="none" label="None"/>
-              </RadioButtonGroup>
-            </div>
-            <div style={this.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.assigneeInputDisabled} inputStyle={this.textInputStyle} value={this.state.assigneeTextValue} fullWidth={true} hintText="Type the assignee name" floatingLabelText="Assignee name" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="text" onChange={this.handleChangeAssigneeText}/>
-            </div>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Creator filter
-            </h3>
-          </div>
-          <div style={this.doubleRowStyle}>
-            <div style={this.doubleRowInternalLeftWrapStyle}>
-              <div style={this.checkBoxWrapStyle}>
-                <Checkbox style={this.checkBoxStyle} iconStyle={this.checkBoxIconStyle} label="Include" labelStyle={this.checkBoxLabelStyle} checked={this.state.creatorFilterChecked} onCheck={this.updateCreatorFilterChecked}/>
-              </div>
-            </div>
-            <div style={this.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.creatorInputDisabled} inputStyle={this.textInputStyle} value={this.state.creatorTextValue} fullWidth={true} hintText="Type the creator name" floatingLabelText="Creator name" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="text" onChange={this.handleChangeCreatorText}/>
-            </div>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Mentioned filter
-            </h3>
-          </div>
-          <div style={this.doubleRowStyle}>
-            <div style={this.doubleRowInternalLeftWrapStyle}>
-              <div style={this.checkBoxWrapStyle}>
-                <Checkbox style={this.checkBoxStyle} iconStyle={this.checkBoxIconStyle} label="Include" labelStyle={this.checkBoxLabelStyle} checked={this.state.mentionedFilterChecked} onCheck={this.updateMentionedFilterChecked}/>
-              </div>
-            </div>
-            <div style={this.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.mentionedInputDisabled} inputStyle={this.textInputStyle} value={this.state.mentionedTextValue} fullWidth={true} hintText="Type the mentioned name" floatingLabelText="Mentioned name" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="text" onChange={this.handleChangeMentionedText}/>
-            </div>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Labels filter
-            </h3>
-          </div>
-          <div style={this.doubleRowStyle}>
-            <div style={this.doubleRowInternalLeftWrapStyle}>
-              <div style={this.innerDoubleRowStyle}>
-                <TextField inputStyle={this.textInputStyle} value={this.state.labelTextValue} fullWidth={true} hintText="Add a label" floatingLabelText="Label" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="text" onChange={this.handleChangeLabelText}/>
-              </div>
-              <div style={this.innerDoubleRowStyle}>
-                <RaisedButton disabled={this.state.labelButtonDisabled} label="Add" secondary={true} onMouseDown={this.addLabel}/>
-              </div>
-            </div>
-            <div style={this.doubleRowChipWrapStyle}>
-              {this.state.chipData.map(this.renderChip, this)}
-            </div>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Sort filter
-            </h3>
-          </div>
-          <div style={this.inputInternalRowStyle}>
-            <SelectField labelStyle={this.selectLabelStyle} fullWidth={true} style={this.selectLoginElement} value={this.state.sortInputValue} onChange={this.handleChangeSortInputSelect} floatingLabelText="Sort by" floatingLabelStyle={this.floatingLabelStyle} iconStyle={this.selectIconStyle}>
-              <MenuItem value={1} primaryText="Created"/>
-              <MenuItem value={2} primaryText="Updated"/>
-              <MenuItem value={3} primaryText="Comments"/>
-            </SelectField>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Direction filter
-            </h3>
-          </div>
-          <div style={this.inputInternalRowStyle}>
-            <SelectField labelStyle={this.selectLabelStyle} fullWidth={true} style={this.selectLoginElement} value={this.state.directionInputValue} onChange={this.handleChangeDirectionInputSelect} floatingLabelText="Sort direction" floatingLabelStyle={this.floatingLabelStyle} iconStyle={this.selectIconStyle}>
-              <MenuItem value={1} primaryText="Ascending"/>
-              <MenuItem value={2} primaryText="Descending"/>
-            </SelectField>
-          </div>
-        </div>
-
-        <div style={this.inputBoxStyle}>
-          <div style={this.inputBoxTitleRowStyle}>
-            <h3 style={this.internalTitleStyle}>
-              Time filter
-            </h3>
-          </div>
-          <div style={this.doubleRowStyle}>
-            <div style={this.doubleRowInternalLeftWrapStyle}>
-              <div style={this.checkBoxWrapStyle}>
-                <Checkbox style={this.checkBoxStyle} iconStyle={this.checkBoxIconStyle} label="Include" labelStyle={this.checkBoxLabelStyle} checked={this.state.secondsFilterChecked} onCheck={this.updateSecondsFilterChecked}/>
-              </div>
-            </div>
-            <div style={this.doubleRowInternalRightTimeWrapStyle}>
-              <DatePicker value={this.state.dateValue} disabled={this.state.dateInputDisabled} onChange={this.handleDatePickerChange} inputStyle={this.timeTextFieldStyle} hintText="Choose the date" mode="landscape"/>
-              <TimePicker value={this.state.timeValue} disabled={this.state.timeInputDisabled} onChange={this.handleTimePickerChange} inputStyle={this.timeTextFieldStyle} hintText="Choose the time"/>
-              <TextField value={this.state.secondsValue} disabled={this.state.secondsInputDisabled} onChange={this.handleChangeSecondsText} inputStyle={this.textInputStyle} fullWidth={true} hintText="Seconds value" floatingLabelText="Seconds" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="number"/>
+              <TextField disabled={this.state.milestoneInputDisabled} inputStyle={this.textInputStyle} value={this.state.milestoneIntegerValue} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={this.floatingLabelStyle} underlineFocusStyle={this.underlineFocusStyle} type="number" onChange={this.handleChangeMilestoneText}/>
             </div>
           </div>
         </div>
