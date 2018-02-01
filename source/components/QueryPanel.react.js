@@ -14,14 +14,7 @@ import RightArrow from 'material-ui/svg-icons/navigation/chevron-right';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
 interface GithubObject {
-  milestone: any,
-  state: string,
-  assignee: string,
-  creator?: string,
-  mentioned?: string,
-  labels?: string,
-  sort: string,
-  since?: string
+  milestone: any
 }
 
 class QueryPanel extends React.Component {
@@ -35,38 +28,8 @@ class QueryPanel extends React.Component {
     this.state = {
       milestoneInputDisabled: true,
       milestoneIntegerValue: '',
-
-      stateInputValue: 3,
-
-      assigneeInputDisabled: true,
-      assigneeTextValue: '',
-
-      creatorFilterChecked: false,
-      creatorInputDisabled: true,
-      creatorTextValue: '',
-
-      mentionedFilterChecked: false,
-      mentionedInputDisabled: true,
-      mentionedTextValue: '',
-
-      chipData: [],
-      labelTextValue: '',
-      labelButtonDisabled: true,
-
-      sortInputValue: 1,
-      directionInputValue: 2,
-
-      secondsFilterChecked: false,
-
-      secondsInputDisabled: true,
-      secondsValue: '',
-
-      dateInputDisabled: true,
-      dateValue: '',
-
-      timeInputDisabled: true,
-      timeValue: ''
     };
+
     this.paperStyle = {
       textAlign: 'center',
       display: 'inline-block',
@@ -183,13 +146,7 @@ class QueryPanel extends React.Component {
       borderColor: '#FC4482'
     };
 
-    // this.milestoneIsNumber = false;
     this.milestoneStringValue = '*';
-    
-    this.stateInput = 'all';
-    this.sortInput = 'created';
-    this.directionInput = 'desc';
-    this.assigneeStringValue = '*'
   }
 
   handleMilestoneChange(evt : any, value : string): void {
@@ -235,97 +192,13 @@ class QueryPanel extends React.Component {
         : milestoneValueToSend = '*';
     };
 
-    let assigneeDisabled: boolean = this.state.assigneeInputDisabled;
-    let assigneeValueToSend: any;
-    if (assigneeDisabled) {
-      assigneeValueToSend = this.assigneeStringValue;
-    } else {
-      this.state.assigneeTextValue
-        ? assigneeValueToSend = this.state.assigneeTextValue
-        : assigneeValueToSend = '*';
-    };
 
-    let sortValueToSend: string = this.sortInput;
-    let directionValueToSend: string = this.directionInput;
+
 
     let objectToSend: GithubObject = {
-      milestone: milestoneValueToSend,
-      state: this.stateInput,
-      assignee: assigneeValueToSend,
-      sort: sortValueToSend,
-      direction: directionValueToSend
+      milestone: milestoneValueToSend
     }
-
-    let creatorDisabled: boolean = this.state.creatorInputDisabled;
-    if (!creatorDisabled && this.state.creatorTextValue) {
-      objectToSend.creator = this.state.creatorTextValue;
-    }
-
-    let mentionedDisabled: boolean = this.state.mentionedInputDisabled;
-    if (!mentionedDisabled && this.state.mentionedTextValue) {
-      objectToSend.mentioned = this.state.mentionedTextValue;
-    }
-
-    let stringsArray: Array<string> = this.state.chipData;
-    let labelsToSend: string = '';
-    if (stringsArray.length > 0) {
-      stringsArray.forEach((item, index, array) => {
-        labelsToSend = labelsToSend + item.label;
-        if (index !== array.length - 1) {
-          labelsToSend = labelsToSend + ','
-        };
-      });
-      objectToSend.labels = labelsToSend;
-    };
-
-    let timeInputDisabled: boolean = this.state.timeInputDisabled;
-    let sinceValueToSend: string;
-
-    if (!timeInputDisabled) {
-      let dateValue: string = this.state.dateValue;
-      let timeValue: string = this.state.timeValue;
-      let secondsValue: number = this.state.secondsValue;
-      sinceValueToSend = this.mergeTime(dateValue, timeValue, secondsValue);
-      objectToSend.since = sinceValueToSend;
-    };
     ActionCreatorSendToGithub(objectToSend);
-  }
-
-  mergeTime(dateValue : string, timeValue : string, secondsValue : number): string {
-    let year: number = dateValue.getFullYear();
-    let month: any = dateValue.getMonth();
-    month++;
-    if (month < 10) {
-      month = `0${month}`;
-    };
-    let date: any = dateValue.getDate();
-    if (date < 10) {
-      date = `0${date}`;
-    };
-    let hour: any = timeValue.getHours()
-    if (hour < 10) {
-      hour = `0${hour}`;
-    };
-    let minute: any = timeValue.getMinutes();
-    if (minute < 10) {
-      minute = `0${minute}`;
-    };
-    let secondsValueToConvert: string;
-
-    if (!secondsValue) {
-      secondsValueToConvert = '00';
-    } else {
-      secondsValue < 10
-        ? secondsValueToConvert = `0${secondsValue}`
-        : secondsValueToConvert = `${secondsValue}`;
-    };
-    let timeToReturn: string = `${year}-${month}-${date}T${hour}:${minute}:${secondsValueToConvert}Z`;
-    return timeToReturn
-  }
-
-  componentWillMount() {
-    let currentDate: any = new Date();
-    this.setState({dateValue: currentDate, timeValue: currentDate, secondsValue: 0});
   }
 
   render() {

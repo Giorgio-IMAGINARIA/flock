@@ -12,14 +12,7 @@ interface ActionObject {
 }
 
 interface GithubObject {
-  milestone: any,
-  state: string,
-  assignee: string,
-  creator?: string,
-  mentioned?: string,
-  labels?: string,
-  sort: string,
-  since?: string
+  milestone: any
 }
 
 export default function(objectToSubmit : GithubObject): void {
