@@ -9,16 +9,9 @@ import ActionCreatorSendToGithub from '../actions/ActionCreatorSendToGithub';
 //Material UI
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RightArrow from 'material-ui/svg-icons/navigation/chevron-right';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import Checkbox from 'material-ui/Checkbox';
-import RaisedButton from 'material-ui/RaisedButton';
-import Chip from 'material-ui/Chip';
-import DatePicker from 'material-ui/DatePicker';
-import TimePicker from 'material-ui/TimePicker';
 
 interface GithubObject {
   milestone: any,
@@ -35,25 +28,9 @@ class QueryPanel extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleChangeStateInputSelect = this.handleChangeStateInputSelect.bind(this);
-    this.handleChangeSortInputSelect = this.handleChangeSortInputSelect.bind(this);
-    this.handleChangeDirectionInputSelect = this.handleChangeDirectionInputSelect.bind(this);
     this.handleChangeMilestoneText = this.handleChangeMilestoneText.bind(this);
-    this.handleChangeAssigneeText = this.handleChangeAssigneeText.bind(this);
-    this.handleChangeCreatorText = this.handleChangeCreatorText.bind(this);
-    this.handleChangeMentionedText = this.handleChangeMentionedText.bind(this);
-    this.handleChangeSecondsText = this.handleChangeSecondsText.bind(this);
-    this.handleChangeLabelText = this.handleChangeLabelText.bind(this);
-    this.addLabel = this.addLabel.bind(this);
     this.handleMilestoneChange = this.handleMilestoneChange.bind(this);
-    this.handleAssigneeChange = this.handleAssigneeChange.bind(this);
-    this.updateCreatorFilterChecked = this.updateCreatorFilterChecked.bind(this);
-    this.updateMentionedFilterChecked = this.updateMentionedFilterChecked.bind(this);
-    this.updateSecondsFilterChecked = this.updateSecondsFilterChecked.bind(this);
-    this.handleRequestDeleteChip = this.handleRequestDeleteChip.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
-    this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
-    this.handleTimePickerChange = this.handleTimePickerChange.bind(this);
 
     this.state = {
       milestoneInputDisabled: true,
@@ -171,22 +148,6 @@ class QueryPanel extends React.Component {
       justifyContent: 'center'
     };
 
-    this.doubleRowInternalRightTimeWrapStyle = {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-end',
-      justifyContent: 'space-around',
-      width: '50%'
-    }
-
-    this.doubleRowChipWrapStyle = {
-      width: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      overflowX: 'auto',
-      border: '1px dashed #ffffff'
-    }
-
     this.radioButtonSpacedStyle = {
       marginBottom: '16px'
     };
@@ -203,21 +164,6 @@ class QueryPanel extends React.Component {
       color: '#ffffff'
     }
 
-    this.checkBoxWrapStyle = {
-      display: 'flex',
-      alignItems: 'center'
-    };
-
-    this.checkBoxStyle = {
-      display: 'flex'
-    }
-    this.checkBoxIconStyle = {
-      fill: '#ffffff'
-    }
-    this.checkBoxLabelStyle = {
-      color: '#ffffff'
-    }
-
     this.panelRowStyle = {
       width: '100%',
       display: 'flex',
@@ -229,9 +175,6 @@ class QueryPanel extends React.Component {
       height: '50px',
       justifyContent: 'center'
     };
-    this.selectLoginElement = {
-      textAlign: 'left'
-    };
 
     this.floatingLabelStyle = {
       color: '#ffffff'
@@ -240,69 +183,13 @@ class QueryPanel extends React.Component {
       borderColor: '#FC4482'
     };
 
-    this.selectIconStyle = {
-      fill: '#ffffff'
-    };
-
-    this.selectLabelStyle = {
-      color: '#ffffff'
-    };
-
-    this.innerDoubleRowStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      width: '50%'
-    };
-
-    this.chipStyle = {
-      margin: '4px'
-    };
-
-    this.timeTextFieldStyle = {
-      color: '#ffffff'
-    }
-
-    this.milestoneIsNumber = false;
+    // this.milestoneIsNumber = false;
     this.milestoneStringValue = '*';
+    
     this.stateInput = 'all';
     this.sortInput = 'created';
     this.directionInput = 'desc';
     this.assigneeStringValue = '*'
-  }
-
-  addLabel() {
-    let chipDataArray: Array<any> = this.state.chipData;
-    let nextKey: number = chipDataArray.length;
-    chipDataArray.push({key: nextKey, label: this.state.labelTextValue});
-    this.setState({chipData: chipDataArray, labelTextValue: '', labelButtonDisabled: true});
-  }
-
-  handleRequestDeleteChip(key) {
-    this.chipData = this.state.chipData;
-    const chipToDelete = this.chipData.map((chip) => chip.key).indexOf(key);
-    this.chipData.splice(chipToDelete, 1);
-    this.setState({chipData: this.chipData});
-  }
-
-  updateCreatorFilterChecked(evt : any, value : any) {
-    this.setState({creatorFilterChecked: value});
-    this.setState({
-      creatorInputDisabled: !value
-    });
-    if (!value) {
-      this.setState({creatorTextValue: ''});
-    };
-  }
-
-  updateMentionedFilterChecked(evt : any, value : any) {
-    this.setState({mentionedFilterChecked: value});
-    this.setState({
-      mentionedInputDisabled: !value
-    });
-    if (!value) {
-      this.setState({mentionedTextValue: ''});
-    };
   }
 
   handleMilestoneChange(evt : any, value : string): void {
@@ -327,86 +214,6 @@ class QueryPanel extends React.Component {
     };
   }
 
-  handleAssigneeChange(evt : any, value : string): void {
-    if (value === 'text') {
-      this.setState({assigneeInputDisabled: false});
-      this.assigneeStringValue = null;
-    } else {
-      this.setState({assigneeInputDisabled: true, assigneeTextValue: ''});
-
-      switch (value) {
-        case 'all':
-          {
-            this.assigneeStringValue = '*'
-          }
-          break;
-        case 'none':
-          {
-            this.assigneeStringValue = value
-          }
-          break;
-      };
-    };
-  }
-
-  handleChangeStateInputSelect(event, index, value) {
-    this.setState({stateInputValue: value});
-    switch (value) {
-      case 1:
-        {
-          this.stateInput = 'open';
-        }
-        break;
-      case 2:
-        {
-          this.stateInput = 'closed';
-        }
-        break;
-      case 3:
-        {
-          this.stateInput = 'all';
-        }
-        break;
-    };
-  }
-
-  handleChangeSortInputSelect(event, index, value) {
-    this.setState({sortInputValue: value});
-    switch (value) {
-      case 1:
-        {
-          this.sortInput = 'created';
-        }
-        break;
-      case 2:
-        {
-          this.sortInput = 'updated';
-        }
-        break;
-      case 3:
-        {
-          this.sortInput = 'comments';
-        }
-        break;
-    };
-  }
-
-  handleChangeDirectionInputSelect(event, index, value) {
-    this.setState({directionInputValue: value});
-    switch (value) {
-      case 1:
-        {
-          this.directionInput = 'asc';
-        }
-        break;
-      case 2:
-        {
-          this.directionInput = 'desc';
-        }
-        break;
-    };
-  }
-
   returnAbsIntValue(value : string): number {
     return Math.abs(parseInt(value));
   }
@@ -415,67 +222,6 @@ class QueryPanel extends React.Component {
     this.returnAbsIntValue(value)
       ? this.setState({milestoneIntegerValue: this.returnAbsIntValue(value)})
       : this.setState({milestoneIntegerValue: ''});
-  }
-
-  handleChangeAssigneeText(evt, value) {
-    this.setState({assigneeTextValue: value});
-  }
-
-  handleChangeCreatorText(evt, value) {
-    this.setState({creatorTextValue: value});
-  }
-
-  handleChangeMentionedText(evt, value) {
-    this.setState({mentionedTextValue: value});
-  }
-
-  handleChangeLabelText(evt, value) {
-    value !== ''
-      ? this.setState({labelButtonDisabled: false})
-      : this.setState({labelButtonDisabled: true});
-    this.setState({labelTextValue: value});
-  }
-
-  renderChip(data) {
-    return (<div key={data.key}>
-      <Chip onRequestDelete={() => this.handleRequestDeleteChip(data.key)} style={this.chipStyle}>
-        {data.label}
-      </Chip>
-    </div>);
-  }
-
-  updateSecondsFilterChecked(evt : any, value : any) {
-    this.setState({secondsFilterChecked: value});
-    this.setState({
-      dateInputDisabled: !value,
-      timeInputDisabled: !value,
-      secondsInputDisabled: !value
-    });
-
-    if (value) {
-      let currentDate: any = new Date();
-      this.setState({dateValue: currentDate, timeValue: currentDate, secondsValue: 0});
-    };
-  }
-
-  handleDatePickerChange(evt : any, value : string) {
-    this.setState({dateValue: value});
-  }
-
-  handleTimePickerChange(evt : any, value : string) {
-    this.setState({timeValue: value});
-  }
-
-  handleChangeSecondsText(evt, value) {
-    if (value === '') {
-      this.setState({secondsValue: ''});
-    } else if (value.length > 1 && value[0] === '0') {
-      this.setState({secondsValue: 60});
-    } else {
-      (testValue < 60)
-        ? this.setState({secondsValue: this.returnAbsIntValue(value)})
-        : this.setState({secondsValue: 60});
-    };
   }
 
   validateDetails() {
