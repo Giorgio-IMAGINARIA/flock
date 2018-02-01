@@ -590,12 +590,11 @@ class QueryPanel extends React.Component {
           Query panel
         </h1>
         <h2 style={this.subTitle}>
-          Select the kind of filters to apply to the Github (atom/atom) issues search and submit your query
+          Select "All" to get data related to all drones or type the drone id for a specific drone, then submit your query
         </h2>
       </div>
 
       <div style={this.paperContentWrapStyle}>
-
         <div style={this.inputBoxStyle}>
           <div style={this.inputBoxTitleRowStyle}>
             <h3 style={this.internalTitleStyle}>

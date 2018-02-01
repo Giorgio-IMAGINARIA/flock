@@ -41675,7 +41675,7 @@ var MainBarUI = function (_React$Component) {
         onTouchTap: this.handleClose })];
       return _react2.default.createElement(
         _AppBar2.default,
-        { title: 'CheckRecipient', style: this.appBarStyle, iconElementLeft: _react2.default.createElement(
+        { title: 'Flock-API Client', style: this.appBarStyle, iconElementLeft: _react2.default.createElement(
             _IconButton2.default,
             { onTouchTap: this.onLeftIconButtonTouchTap, tooltip: 'Help',
               tooltipPosition: 'bottom-right' },
@@ -49493,7 +49493,7 @@ var QueryPanel = function (_React$Component) {
           _react2.default.createElement(
             'h2',
             { style: this.subTitle },
-            'Select the kind of filters to apply to the Github (atom/atom) issues search and submit your query'
+            'Select "All" to get data related to all drones or type the drone id for a specific drone, then submit your query'
           )
         ),
         _react2.default.createElement(
@@ -58576,7 +58576,7 @@ var ResultPanel = function (_React$Component) {
           _react2.default.createElement(
             'h2',
             { style: this.subTitle },
-            'A visualisation of the Github issues filtered in the query panel'
+            'A visualisation of the drones filtered in the query panel'
           )
         ),
         _react2.default.createElement(

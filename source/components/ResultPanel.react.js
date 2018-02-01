@@ -94,7 +94,7 @@ class ResultPanel extends React.Component {
           Result panel
         </h1>
         <h2 style={this.subTitle}>
-          A visualisation of the Github issues filtered in the query panel
+          A visualisation of the drones filtered in the query panel
         </h2>
       </div>
       <div style={this.paperContentWrapStyle}>
