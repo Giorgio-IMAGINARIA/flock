@@ -1,9 +1,6 @@
 // @flow
 // React
 import React from 'react';
-// Radium
-import Radium from 'radium';
-let Style = Radium.Style;
 //Action Creators
 import ActionCreatorSendToGithub from '../actions/ActionCreatorSendToGithub';
 //Material UI
@@ -13,7 +10,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RightArrow from 'material-ui/svg-icons/navigation/chevron-right';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
-interface GithubObject {
+interface DroneObject {
   milestone: any
 }
 
@@ -27,7 +24,7 @@ class QueryPanel extends React.Component {
 
     this.state = {
       milestoneInputDisabled: true,
-      milestoneIntegerValue: '',
+      milestoneIntegerValue: ''
     };
 
     this.paperStyle = {
@@ -192,10 +189,7 @@ class QueryPanel extends React.Component {
         : milestoneValueToSend = '*';
     };
 
-
-
-
-    let objectToSend: GithubObject = {
+    let objectToSend: DroneObject = {
       milestone: milestoneValueToSend
     }
     ActionCreatorSendToGithub(objectToSend);
@@ -249,4 +243,4 @@ class QueryPanel extends React.Component {
   }
 }
 
-export default Radium(QueryPanel);
+export default QueryPanel;

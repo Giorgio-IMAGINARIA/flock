@@ -1,11 +1,6 @@
 // @flow
 // React
 import React from 'react';
-// Radium
-import Radium from 'radium';
-let Style = Radium.Style;
-//Action Creators
-import ActionCreatorSendToGithub from '../actions/ActionCreatorSendToGithub';
 //Material UI
 import Paper from 'material-ui/Paper';
 
@@ -36,7 +31,6 @@ class ResultPanel extends React.Component {
       flexDirection: 'column',
       alignItems: 'flex-start',
       justifyContent: 'space-around'
-
     };
     this.globaltext = {
       color: '#ffffff'
@@ -115,4 +109,4 @@ class ResultPanel extends React.Component {
 
 }
 
-export default Radium(ResultPanel);
+export default ResultPanel;

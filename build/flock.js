@@ -47492,10 +47492,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(99);
-
-var _radium2 = _interopRequireDefault(_radium);
-
 var _ActionCreatorSendToGithub = __webpack_require__(208);
 
 var _ActionCreatorSendToGithub2 = _interopRequireDefault(_ActionCreatorSendToGithub);
@@ -47527,13 +47523,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // React
 
-// Radium
-
-
-var Style = _radium2.default.Style;
 //Action Creators
 
 //Material UI
+
 
 var QueryPanel = function (_React$Component) {
   _inherits(QueryPanel, _React$Component);
@@ -47790,7 +47783,7 @@ var QueryPanel = function (_React$Component) {
   return QueryPanel;
 }(_react2.default.Component);
 
-exports.default = (0, _radium2.default)(QueryPanel);
+exports.default = QueryPanel;
 
 /***/ }),
 /* 496 */
@@ -50655,14 +50648,6 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _radium = __webpack_require__(99);
-
-var _radium2 = _interopRequireDefault(_radium);
-
-var _ActionCreatorSendToGithub = __webpack_require__(208);
-
-var _ActionCreatorSendToGithub2 = _interopRequireDefault(_ActionCreatorSendToGithub);
-
 var _Paper = __webpack_require__(26);
 
 var _Paper2 = _interopRequireDefault(_Paper);
@@ -50682,15 +50667,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // React
 
-// Radium
-
-
-var Style = _radium2.default.Style;
-//Action Creators
-
 //Material UI
 
 //Stores
+
 
 var ResultPanel = function (_React$Component) {
   _inherits(ResultPanel, _React$Component);
@@ -50719,7 +50699,6 @@ var ResultPanel = function (_React$Component) {
       flexDirection: 'column',
       alignItems: 'flex-start',
       justifyContent: 'space-around'
-
     };
     _this.globaltext = {
       color: '#ffffff'
@@ -50819,7 +50798,7 @@ var ResultPanel = function (_React$Component) {
   return ResultPanel;
 }(_react2.default.Component);
 
-exports.default = (0, _radium2.default)(ResultPanel);
+exports.default = ResultPanel;
 
 /***/ }),
 /* 514 */
