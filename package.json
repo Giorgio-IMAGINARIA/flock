@@ -1,0 +1,43 @@
+{
+  "name": "CheckRecipient-app",
+  "version": "1.0.0",
+  "description": "A Github client",
+  "main": "index.js",
+  "scripts": {
+    "web-watch": "webpack --progress --colors --watch",
+    "flow": "flow"
+  },
+  "author": "Giorgio Mazzei",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "flux": "^3.1.2",
+    "material-ui": "^0.20.0",
+    "morgan": "^1.8.2",
+    "object-assign": "^4.1.1",
+    "prop-types": "^15.5.10",
+    "radium": "^0.19.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.20.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "flow-bin": "^0.48.0",
+    "webpack": "^3.0.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^3.0.1"
+  }
+}

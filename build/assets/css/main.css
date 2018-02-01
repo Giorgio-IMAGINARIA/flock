@@ -1,0 +1,10 @@
+body,
+#pageToRender,
+.mainContainer {
+    height: inherit;
+}
+
+body{
+  margin: 0px;
+  background-color: #FFF176;
+}
