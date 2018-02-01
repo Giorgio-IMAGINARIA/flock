@@ -3,7 +3,7 @@ module.exports = {
   entry: ['whatwg-fetch','./source/index.js'],
   output: {
     path: __dirname + '/build',
-    filename: 'checkrecipient.js',
+    filename: 'flock.js',
   },
   devServer: {
     contentBase: __dirname + '/build',

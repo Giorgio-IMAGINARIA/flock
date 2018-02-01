@@ -1,7 +1,7 @@
 {
-  "name": "CheckRecipient-app",
+  "name": "Flock-app",
   "version": "1.0.0",
-  "description": "A Github client",
+  "description": "A Flock-API client",
   "main": "index.js",
   "scripts": {
     "web-watch": "webpack --progress --colors --watch",
