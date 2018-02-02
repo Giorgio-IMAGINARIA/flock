@@ -47494,9 +47494,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ActionCreatorSendToGithub = __webpack_require__(496);
+var _ActionCreatorSendToAPI = __webpack_require__(496);
 
-var _ActionCreatorSendToGithub2 = _interopRequireDefault(_ActionCreatorSendToGithub);
+var _ActionCreatorSendToAPI2 = _interopRequireDefault(_ActionCreatorSendToAPI);
 
 var _Paper = __webpack_require__(26);
 
@@ -47589,7 +47589,7 @@ var QueryPanel = function (_React$Component) {
       var objectToSend = {
         droneID: this.state.IDTextFieldValueState ? this.state.IDTextFieldValueState : '*'
       };
-      (0, _ActionCreatorSendToGithub2.default)(objectToSend);
+      (0, _ActionCreatorSendToAPI2.default)(objectToSend);
     }
   }, {
     key: 'render',

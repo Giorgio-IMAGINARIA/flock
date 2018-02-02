@@ -2,7 +2,7 @@
 // React
 import React from 'react';
 //Action Creators
-import ActionCreatorSendToGithub from '../actions/ActionCreatorSendToGithub';
+import ActionCreatorSendToAPI from '../actions/ActionCreatorSendToAPI';
 //Material UI
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -61,7 +61,7 @@ class QueryPanel extends React.Component {
         ? this.state.IDTextFieldValueState
         : '*'
     };
-    ActionCreatorSendToGithub(objectToSend);
+    ActionCreatorSendToAPI(objectToSend);
   }
 
   render() {
