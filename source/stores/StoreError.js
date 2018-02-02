@@ -8,7 +8,7 @@ class StoreError extends EventEmitter {
 
   constructor() {
     super();
-    this.droneArray = [];
+    this.errormessage = '';
     this.dispatchToken = AppDispatcher.register(this.handleAction.bind(this));
   }
 
@@ -20,17 +20,17 @@ class StoreError extends EventEmitter {
     this.removeListener(CHANGE_EVENT, callback);
   }
 
-  getDroneArray() {
-    return this.droneArray;
+  getErrorMessage() {
+    return this.errormessage;
   }
 
-  setDroneArray(parameter) {
-    this.droneArray = parameter;
+  setErrorMessage(parameter) {
+    this.errormessage = parameter;
   }
 
   handleAction(Action) {
-    if (Action.type === 'update_drone_array') {
-      this.setDroneArray(Action.parameter);
+    if (Action.type === 'api_error') {
+      this.setErrorMessage(Action.parameter);
       this.emitChange();
     }
   }
