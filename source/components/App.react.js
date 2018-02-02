@@ -42,6 +42,7 @@ class App extends React.Component {
             <QueryPanel/>
             <ResultPanel/>
         </div>
+        
       </MuiThemeProvider>
     </StyleRoot>);
   }
