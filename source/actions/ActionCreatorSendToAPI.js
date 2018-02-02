@@ -29,6 +29,7 @@ export default function(objectToSubmit : DroneObject): void {
     let arrayToreturn:Array<any> = Array.isArray(objectRetrieved)?
     objectRetrieved:
     [objectRetrieved];
+    console.log(arrayToreturn)
 
     dispatchAction(arrayToreturn);
   }).catch((ex) => {

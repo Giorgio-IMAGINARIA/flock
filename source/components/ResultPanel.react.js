@@ -3,8 +3,14 @@
 import React from 'react';
 //Material UI
 import Paper from 'material-ui/Paper';
-
-import {List, ListItem} from 'material-ui/List';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 //Stores
 import StoreDroneList from '../stores/StoreDroneList';
 // Style Modules
@@ -16,26 +22,27 @@ class ResultPanel extends React.Component {
   constructor(props) {
     super(props);
     this.onCurrentStoreDroneListChange = this.onCurrentStoreDroneListChange.bind(this);
-
     this.state = {
-      issueList: []
+      droneArray: []
     };
 
   }
 
   onCurrentStoreDroneListChange() {
     let nextArray: Array<any> = StoreDroneList.getDroneArray();
-    let listToRender: Array<any> = [];
-    nextArray.forEach((item, index, array) => {
-      let elementToCreate: any = <ListItem onMouseDown={this.openTab.bind(this, item.html_url)} innerDivStyle={ResultStyle.listItemStyle} key={index} primaryText={item.title}/>;
-      listToRender.push(elementToCreate);
+    let droneList: Array<any> = [];
+    nextArray.forEach((item, index) => {
+      let elementToCreate: any =<TableRow key={index}>
+        <TableRowColumn>{item.droneId}</TableRowColumn>
+        <TableRowColumn>{item.name}</TableRowColumn>
+        <TableRowColumn>{item.numCrashes}</TableRowColumn>
+        <TableRowColumn>{item.numFlights}</TableRowColumn>
+        <TableRowColumn>{item.price}</TableRowColumn>
+        <TableRowColumn>{item.currency}</TableRowColumn>
+      </TableRow>;
+      droneList.push(elementToCreate);
     });
-    this.setState({issueList: listToRender});
-  }
-
-  openTab(url : string) {
-    let win = window.open(url, '_blank');
-    win.focus();
+    this.setState({droneArray: droneList});
   }
 
   componentWillMount() {
@@ -53,9 +60,21 @@ class ResultPanel extends React.Component {
         </h2>
       </div>
       <div style={GeneralStyle.paperContentWrapStyle}>
-        <List>
-          {this.state.issueList}
-        </List>
+        <Table>
+   <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+     <TableRow>
+       <TableHeaderColumn>ID</TableHeaderColumn>
+       <TableHeaderColumn>Name</TableHeaderColumn>
+       <TableHeaderColumn>Crashes</TableHeaderColumn>
+       <TableHeaderColumn>Flights</TableHeaderColumn>
+       <TableHeaderColumn>Price</TableHeaderColumn>
+       <TableHeaderColumn>Currency</TableHeaderColumn>
+     </TableRow>
+   </TableHeader>
+   <TableBody displayRowCheckbox={false}>
+    {this.state.droneArray}
+   </TableBody>
+ </Table>
       </div>
     </Paper>);
   }
