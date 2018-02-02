@@ -4,6 +4,7 @@
   "description": "A Flock-API client",
   "main": "index.js",
   "scripts": {
+    "start": "node ./bin/www",
     "web-watch": "webpack --progress --colors --watch",
     "flow": "flow"
   },

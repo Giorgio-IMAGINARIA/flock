@@ -26,8 +26,6 @@ class QueryPanel extends React.Component {
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
 
-    this.milestoneStringValue = '*';
-
     this.state = {
       IDInputDisabledState: true,
       IDTextFieldValueState: ''
@@ -36,29 +34,24 @@ class QueryPanel extends React.Component {
   }
 
   IDRadioGroupChange(evt : any, value : string): void {
-    if (value === 'number') {
-      this.setState({IDInputDisabledState: false});
-      this.milestoneStringValue = null;
-    } else {
-      this.setState({IDInputDisabledState: true, IDTextFieldValueState: ''});
-      this.milestoneStringValue = '*'
-    };
+    value === 'number'
+      ? this.setState({IDInputDisabledState: false})
+      : this.setState({IDInputDisabledState: true, IDTextFieldValueState: ''});
   }
 
-  returnAbsIntValue(value : string): number {
-    return Math.abs(parseInt(value));
+  isNumeric(str : string): boolean {
+    return /^(0|[1-9][0-9]*)$/.test(str);
   }
 
   handleChangeIDText(evt, value) {
-    this.returnAbsIntValue(value)
-      ? this.setState({IDTextFieldValueState: this.returnAbsIntValue(value)})
-      : this.setState({IDTextFieldValueState: ''});
-  }
+    if (this.isNumeric(value) || value === '')
+      this.setState({IDTextFieldValueState: value});
+    }
 
   validateDetails() {
     let objectToSend: DroneObject = {
       droneID: this.state.IDTextFieldValueState
-        ? this.state.IDTextFieldValueState
+        ? parseInt(this.state.IDTextFieldValueState)
         : '*'
     };
     ActionCreatorSendToAPI(objectToSend);
@@ -92,7 +85,7 @@ class QueryPanel extends React.Component {
               </RadioButtonGroup>
             </div>
             <div style={QueryStyle.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.IDInputDisabledState} inputStyle={GeneralStyle.globalText} value={this.state.IDTextFieldValueState} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={GeneralStyle.globalText} underlineFocusStyle={QueryStyle.underlineFocusStyle} type="number" onChange={this.handleChangeIDText}/>
+              <TextField disabled={this.state.IDInputDisabledState} inputStyle={GeneralStyle.globalText} value={this.state.IDTextFieldValueState} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={GeneralStyle.globalText} underlineFocusStyle={QueryStyle.underlineFocusStyle} type="text" onChange={this.handleChangeIDText}/>
             </div>
           </div>
         </div>

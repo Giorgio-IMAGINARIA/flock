@@ -47552,8 +47552,6 @@ var QueryPanel = function (_React$Component) {
     _this.IDRadioGroupChange = _this.IDRadioGroupChange.bind(_this);
     _this.validateDetails = _this.validateDetails.bind(_this);
 
-    _this.milestoneStringValue = '*';
-
     _this.state = {
       IDInputDisabledState: true,
       IDTextFieldValueState: ''
@@ -47565,29 +47563,24 @@ var QueryPanel = function (_React$Component) {
   _createClass(QueryPanel, [{
     key: 'IDRadioGroupChange',
     value: function IDRadioGroupChange(evt, value) {
-      if (value === 'number') {
-        this.setState({ IDInputDisabledState: false });
-        this.milestoneStringValue = null;
-      } else {
-        this.setState({ IDInputDisabledState: true, IDTextFieldValueState: '' });
-        this.milestoneStringValue = '*';
-      };
+      value === 'number' ? this.setState({ IDInputDisabledState: false }) : this.setState({ IDInputDisabledState: true, IDTextFieldValueState: '' });
     }
   }, {
-    key: 'returnAbsIntValue',
-    value: function returnAbsIntValue(value) {
-      return Math.abs(parseInt(value));
+    key: 'isNumeric',
+    value: function isNumeric(str) {
+      return (/^(0|[1-9][0-9]*)$/.test(str)
+      );
     }
   }, {
     key: 'handleChangeIDText',
     value: function handleChangeIDText(evt, value) {
-      this.returnAbsIntValue(value) ? this.setState({ IDTextFieldValueState: this.returnAbsIntValue(value) }) : this.setState({ IDTextFieldValueState: '' });
+      if (this.isNumeric(value) || value === '') this.setState({ IDTextFieldValueState: value });
     }
   }, {
     key: 'validateDetails',
     value: function validateDetails() {
       var objectToSend = {
-        droneID: this.state.IDTextFieldValueState ? this.state.IDTextFieldValueState : '*'
+        droneID: this.state.IDTextFieldValueState ? parseInt(this.state.IDTextFieldValueState) : '*'
       };
       (0, _ActionCreatorSendToAPI2.default)(objectToSend);
     }
@@ -47642,7 +47635,7 @@ var QueryPanel = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { style: _QueryStyle2.default.doubleRowInternalRightWrapStyle },
-                _react2.default.createElement(_TextField2.default, { disabled: this.state.IDInputDisabledState, inputStyle: _GeneralStyle2.default.globalText, value: this.state.IDTextFieldValueState, fullWidth: true, hintText: 'Type the drone ID', floatingLabelText: 'Drone ID', floatingLabelStyle: _GeneralStyle2.default.globalText, underlineFocusStyle: _QueryStyle2.default.underlineFocusStyle, type: 'number', onChange: this.handleChangeIDText })
+                _react2.default.createElement(_TextField2.default, { disabled: this.state.IDInputDisabledState, inputStyle: _GeneralStyle2.default.globalText, value: this.state.IDTextFieldValueState, fullWidth: true, hintText: 'Type the drone ID', floatingLabelText: 'Drone ID', floatingLabelStyle: _GeneralStyle2.default.globalText, underlineFocusStyle: _QueryStyle2.default.underlineFocusStyle, type: 'text', onChange: this.handleChangeIDText })
               )
             )
           ),
@@ -47683,19 +47676,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = function (objectToSubmit) {
   console.log('objectToSubmit: ', objectToSubmit);
 
-  var route = 'api/v0/drones';
+  var route = objectToSubmit.droneID === '*' ? 'api/v0/drones' : '/api/v0/drone/' + objectToSubmit.droneID;
 
   var address = '' + _StoreAddress2.default.getAddressRoot() + route;
-  var url = new URL(address),
-      params = objectToSubmit;
-  // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-  fetch(url, { method: 'GET' }).then(function (response) {
+  fetch(address, { method: 'GET' }).then(function (response) {
     return response.json();
-  }).then(function (array) {
+  }).then(function (objectRetrieved) {
+    var arrayToreturn = Array.isArray(objectRetrieved) ? objectRetrieved : [objectRetrieved];
 
-    console.log('array: ', array);
-
-    dispatchAction(array);
+    dispatchAction(arrayToreturn);
   }).catch(function (ex) {
     console.error('parsing failed', ex);
     return false;

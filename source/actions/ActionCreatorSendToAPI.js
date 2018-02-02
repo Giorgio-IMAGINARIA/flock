@@ -18,19 +18,19 @@ interface DroneObject {
 export default function(objectToSubmit : DroneObject): void {
   console.log('objectToSubmit: ', objectToSubmit);
 
-  let route: string = 'api/v0/drones'
+  let route: string = objectToSubmit.droneID === '*'
+    ? `api/v0/drones`
+    : `/api/v0/drone/${objectToSubmit.droneID}`
 
   let address = `${StoreAddress.getAddressRoot()}${route}`;
-  let url = new URL(address),
-    params = objectToSubmit;
-  // Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-  fetch(url, {method: 'GET'}).then((response) => {
+  fetch(address, {method: 'GET'}).then((response) => {
     return response.json()
-  }).then((array) => {
+  }).then((objectRetrieved) => {
+    let arrayToreturn:Array<any> = Array.isArray(objectRetrieved)?
+    objectRetrieved:
+    [objectRetrieved];
 
-console.log('array: ', array);
-
-    dispatchAction(array);
+    dispatchAction(arrayToreturn);
   }).catch((ex) => {
     console.error('parsing failed', ex);
     return false;
