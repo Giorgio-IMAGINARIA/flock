@@ -41,19 +41,7 @@ class QueryPanel extends React.Component {
       this.milestoneStringValue = null;
     } else {
       this.setState({milestoneInputDisabled: true, milestoneIntegerValue: ''});
-
-      switch (value) {
-        case 'all':
-          {
-            this.milestoneStringValue = '*'
-          }
-          break;
-        case 'none':
-          {
-            this.milestoneStringValue = value
-          }
-          break;
-      };
+      this.milestoneStringValue = '*'
     };
   }
 
@@ -80,7 +68,7 @@ class QueryPanel extends React.Component {
 
     let objectToSend: DroneObject = {
       milestone: milestoneValueToSend
-    }
+    };
     ActionCreatorSendToGithub(objectToSend);
   }
 
@@ -109,7 +97,6 @@ class QueryPanel extends React.Component {
               <RadioButtonGroup name='milestoneSelection' defaultSelected="all" onChange={this.handleMilestoneChange}>
                 <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="all" label="All" style={QueryStyle.radioButtonSpacedStyle}/>
                 <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="number" label="ID" style={QueryStyle.radioButtonSpacedStyle}/>
-                <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="none" label="None"/>
               </RadioButtonGroup>
             </div>
             <div style={QueryStyle.doubleRowInternalRightWrapStyle}>

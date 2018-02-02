@@ -47570,19 +47570,7 @@ var QueryPanel = function (_React$Component) {
         this.milestoneStringValue = null;
       } else {
         this.setState({ milestoneInputDisabled: true, milestoneIntegerValue: '' });
-
-        switch (value) {
-          case 'all':
-            {
-              this.milestoneStringValue = '*';
-            }
-            break;
-          case 'none':
-            {
-              this.milestoneStringValue = value;
-            }
-            break;
-        };
+        this.milestoneStringValue = '*';
       };
     }
   }, {
@@ -47656,8 +47644,7 @@ var QueryPanel = function (_React$Component) {
                   _RadioButton.RadioButtonGroup,
                   { name: 'milestoneSelection', defaultSelected: 'all', onChange: this.handleMilestoneChange },
                   _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: 'all', label: 'All', style: _QueryStyle2.default.radioButtonSpacedStyle }),
-                  _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: 'number', label: 'ID', style: _QueryStyle2.default.radioButtonSpacedStyle }),
-                  _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: 'none', label: 'None' })
+                  _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: 'number', label: 'ID', style: _QueryStyle2.default.radioButtonSpacedStyle })
                 )
               ),
               _react2.default.createElement(
