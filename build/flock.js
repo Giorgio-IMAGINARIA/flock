@@ -47548,28 +47548,28 @@ var QueryPanel = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (QueryPanel.__proto__ || Object.getPrototypeOf(QueryPanel)).call(this, props));
 
-    _this.handleChangeMilestoneText = _this.handleChangeMilestoneText.bind(_this);
-    _this.handleMilestoneChange = _this.handleMilestoneChange.bind(_this);
+    _this.handleChangeIDText = _this.handleChangeIDText.bind(_this);
+    _this.IDRadioGroupChange = _this.IDRadioGroupChange.bind(_this);
     _this.validateDetails = _this.validateDetails.bind(_this);
 
     _this.milestoneStringValue = '*';
 
     _this.state = {
-      milestoneInputDisabled: true,
-      milestoneIntegerValue: ''
+      IDInputDisabledState: true,
+      IDTextFieldValueState: ''
     };
 
     return _this;
   }
 
   _createClass(QueryPanel, [{
-    key: 'handleMilestoneChange',
-    value: function handleMilestoneChange(evt, value) {
+    key: 'IDRadioGroupChange',
+    value: function IDRadioGroupChange(evt, value) {
       if (value === 'number') {
-        this.setState({ milestoneInputDisabled: false });
+        this.setState({ IDInputDisabledState: false });
         this.milestoneStringValue = null;
       } else {
-        this.setState({ milestoneInputDisabled: true, milestoneIntegerValue: '' });
+        this.setState({ IDInputDisabledState: true, IDTextFieldValueState: '' });
         this.milestoneStringValue = '*';
       };
     }
@@ -47579,23 +47579,15 @@ var QueryPanel = function (_React$Component) {
       return Math.abs(parseInt(value));
     }
   }, {
-    key: 'handleChangeMilestoneText',
-    value: function handleChangeMilestoneText(evt, value) {
-      this.returnAbsIntValue(value) ? this.setState({ milestoneIntegerValue: this.returnAbsIntValue(value) }) : this.setState({ milestoneIntegerValue: '' });
+    key: 'handleChangeIDText',
+    value: function handleChangeIDText(evt, value) {
+      this.returnAbsIntValue(value) ? this.setState({ IDTextFieldValueState: this.returnAbsIntValue(value) }) : this.setState({ IDTextFieldValueState: '' });
     }
   }, {
     key: 'validateDetails',
     value: function validateDetails() {
-      var milestoneDisabled = this.state.milestoneInputDisabled;
-      var milestoneValueToSend = void 0;
-      if (milestoneDisabled) {
-        milestoneValueToSend = this.milestoneStringValue;
-      } else {
-        this.state.milestoneIntegerValue ? milestoneValueToSend = this.state.milestoneIntegerValue : milestoneValueToSend = '*';
-      };
-
       var objectToSend = {
-        milestone: milestoneValueToSend
+        milestone: this.state.IDTextFieldValueState ? this.state.IDTextFieldValueState : '*'
       };
       (0, _ActionCreatorSendToGithub2.default)(objectToSend);
     }
@@ -47642,7 +47634,7 @@ var QueryPanel = function (_React$Component) {
                 { style: _QueryStyle2.default.doubleRowInternalLeftWrapStyle },
                 _react2.default.createElement(
                   _RadioButton.RadioButtonGroup,
-                  { name: 'milestoneSelection', defaultSelected: 'all', onChange: this.handleMilestoneChange },
+                  { name: 'milestoneSelection', defaultSelected: 'all', onChange: this.IDRadioGroupChange },
                   _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: 'all', label: 'All', style: _QueryStyle2.default.radioButtonSpacedStyle }),
                   _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: 'number', label: 'ID', style: _QueryStyle2.default.radioButtonSpacedStyle })
                 )
@@ -47650,7 +47642,7 @@ var QueryPanel = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { style: _QueryStyle2.default.doubleRowInternalRightWrapStyle },
-                _react2.default.createElement(_TextField2.default, { disabled: this.state.milestoneInputDisabled, inputStyle: _GeneralStyle2.default.globalText, value: this.state.milestoneIntegerValue, fullWidth: true, hintText: 'Type the drone ID', floatingLabelText: 'Drone ID', floatingLabelStyle: _GeneralStyle2.default.globalText, underlineFocusStyle: _QueryStyle2.default.underlineFocusStyle, type: 'number', onChange: this.handleChangeMilestoneText })
+                _react2.default.createElement(_TextField2.default, { disabled: this.state.IDInputDisabledState, inputStyle: _GeneralStyle2.default.globalText, value: this.state.IDTextFieldValueState, fullWidth: true, hintText: 'Type the drone ID', floatingLabelText: 'Drone ID', floatingLabelStyle: _GeneralStyle2.default.globalText, underlineFocusStyle: _QueryStyle2.default.underlineFocusStyle, type: 'number', onChange: this.handleChangeIDText })
               )
             )
           ),
@@ -47689,6 +47681,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (objectToSubmit) {
+  console.log('objectToSubmit: ', objectToSubmit);
 
   var route = 'api/v0/drones';
 

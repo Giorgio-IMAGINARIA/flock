@@ -16,6 +16,7 @@ interface DroneObject {
 }
 
 export default function(objectToSubmit : DroneObject): void {
+  console.log('objectToSubmit: ', objectToSubmit);
 
   let route: string = 'api/v0/drones'
 

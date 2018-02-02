@@ -22,25 +22,25 @@ class QueryPanel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleChangeMilestoneText = this.handleChangeMilestoneText.bind(this);
-    this.handleMilestoneChange = this.handleMilestoneChange.bind(this);
+    this.handleChangeIDText = this.handleChangeIDText.bind(this);
+    this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
 
     this.milestoneStringValue = '*';
 
     this.state = {
-      milestoneInputDisabled: true,
-      milestoneIntegerValue: ''
+      IDInputDisabledState: true,
+      IDTextFieldValueState: ''
     };
 
   }
 
-  handleMilestoneChange(evt : any, value : string): void {
+  IDRadioGroupChange(evt : any, value : string): void {
     if (value === 'number') {
-      this.setState({milestoneInputDisabled: false});
+      this.setState({IDInputDisabledState: false});
       this.milestoneStringValue = null;
     } else {
-      this.setState({milestoneInputDisabled: true, milestoneIntegerValue: ''});
+      this.setState({IDInputDisabledState: true, IDTextFieldValueState: ''});
       this.milestoneStringValue = '*'
     };
   }
@@ -49,25 +49,17 @@ class QueryPanel extends React.Component {
     return Math.abs(parseInt(value));
   }
 
-  handleChangeMilestoneText(evt, value) {
+  handleChangeIDText(evt, value) {
     this.returnAbsIntValue(value)
-      ? this.setState({milestoneIntegerValue: this.returnAbsIntValue(value)})
-      : this.setState({milestoneIntegerValue: ''});
+      ? this.setState({IDTextFieldValueState: this.returnAbsIntValue(value)})
+      : this.setState({IDTextFieldValueState: ''});
   }
 
   validateDetails() {
-    let milestoneDisabled: boolean = this.state.milestoneInputDisabled;
-    let milestoneValueToSend: any;
-    if (milestoneDisabled) {
-      milestoneValueToSend = this.milestoneStringValue;
-    } else {
-      this.state.milestoneIntegerValue
-        ? milestoneValueToSend = this.state.milestoneIntegerValue
-        : milestoneValueToSend = '*';
-    };
-
     let objectToSend: DroneObject = {
-      milestone: milestoneValueToSend
+      milestone: this.state.IDTextFieldValueState
+        ? this.state.IDTextFieldValueState
+        : '*'
     };
     ActionCreatorSendToGithub(objectToSend);
   }
@@ -94,13 +86,13 @@ class QueryPanel extends React.Component {
           </div>
           <div style={QueryStyle.doubleRowStyle}>
             <div style={QueryStyle.doubleRowInternalLeftWrapStyle}>
-              <RadioButtonGroup name='milestoneSelection' defaultSelected="all" onChange={this.handleMilestoneChange}>
+              <RadioButtonGroup name='milestoneSelection' defaultSelected="all" onChange={this.IDRadioGroupChange}>
                 <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="all" label="All" style={QueryStyle.radioButtonSpacedStyle}/>
                 <RadioButton labelStyle={GeneralStyle.globalText} iconStyle={QueryStyle.radioIconStyle} value="number" label="ID" style={QueryStyle.radioButtonSpacedStyle}/>
               </RadioButtonGroup>
             </div>
             <div style={QueryStyle.doubleRowInternalRightWrapStyle}>
-              <TextField disabled={this.state.milestoneInputDisabled} inputStyle={GeneralStyle.globalText} value={this.state.milestoneIntegerValue} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={GeneralStyle.globalText} underlineFocusStyle={QueryStyle.underlineFocusStyle} type="number" onChange={this.handleChangeMilestoneText}/>
+              <TextField disabled={this.state.IDInputDisabledState} inputStyle={GeneralStyle.globalText} value={this.state.IDTextFieldValueState} fullWidth={true} hintText="Type the drone ID" floatingLabelText="Drone ID" floatingLabelStyle={GeneralStyle.globalText} underlineFocusStyle={QueryStyle.underlineFocusStyle} type="number" onChange={this.handleChangeIDText}/>
             </div>
           </div>
         </div>
