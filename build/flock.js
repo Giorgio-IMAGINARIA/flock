@@ -47587,7 +47587,7 @@ var QueryPanel = function (_React$Component) {
     key: 'validateDetails',
     value: function validateDetails() {
       var objectToSend = {
-        milestone: this.state.IDTextFieldValueState ? this.state.IDTextFieldValueState : '*'
+        droneID: this.state.IDTextFieldValueState ? this.state.IDTextFieldValueState : '*'
       };
       (0, _ActionCreatorSendToGithub2.default)(objectToSend);
     }

@@ -8,11 +8,11 @@ import 'whatwg-fetch';
 
 interface ActionObject {
   type: string,
-  parameter: DroneObject
+  parameter: Array<any>
 }
 
 interface DroneObject {
-  milestone: any
+  droneID: any
 }
 
 export default function(objectToSubmit : DroneObject): void {
@@ -37,7 +37,7 @@ console.log('array: ', array);
   });
 }
 
-function dispatchAction(parameter : DroneObject) {
+function dispatchAction(parameter : Array<any>) {
   let Action: ActionObject = {
     type: 'update_github_array',
     parameter: parameter

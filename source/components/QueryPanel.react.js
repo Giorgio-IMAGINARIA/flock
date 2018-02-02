@@ -14,7 +14,7 @@ import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
 
 interface DroneObject {
-  milestone: any
+  droneID: any
 }
 
 class QueryPanel extends React.Component {
@@ -57,7 +57,7 @@ class QueryPanel extends React.Component {
 
   validateDetails() {
     let objectToSend: DroneObject = {
-      milestone: this.state.IDTextFieldValueState
+      droneID: this.state.IDTextFieldValueState
         ? this.state.IDTextFieldValueState
         : '*'
     };
