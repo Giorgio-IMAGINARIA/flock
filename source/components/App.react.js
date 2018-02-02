@@ -12,6 +12,8 @@ import QueryPanel from './QueryPanel.react';
 import ResultPanel from './ResultPanel.react';
 //Stores
 import StoreError from '../stores/StoreError';
+// Style Modules
+import AppRootStyle from '../styles/AppRootStyle';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,29 +24,6 @@ class App extends React.Component {
       open: false,
       message: ''
     };
-    this.mainWrap = {
-      width: '100%',
-      height: 'inherit',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    };
-    this.appWrap = {
-      display: 'flex',
-      flexDirection: 'column',
-      alignContent: 'center',
-      width: 'inherit',
-      height: 'inherit'
-    };
-    this.topSpaceStyle = {
-      width: '100%',
-      height: '64px'
-    }
-    this.snackBarStyle = {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
   }
 
   onCurrentStoreErrorChange() {
@@ -57,14 +36,14 @@ class App extends React.Component {
   }
 
   render() {
-    return (<StyleRoot style={this.mainWrap}>
+    return (<StyleRoot style={AppRootStyle.mainWrap}>
       <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <div style={this.appWrap}>
+        <div style={AppRootStyle.appWrap}>
           <MainBarUI/>
-          <div style={this.topSpaceStyle}/>
+          <div style={AppRootStyle.topSpaceStyle}/>
           <QueryPanel/>
           <ResultPanel/>
-          <Snackbar bodyStyle={this.snackBarStyle} open={this.state.open} message={this.state.message} autoHideDuration={4000} onRequestClose={this.handleRequestClose}/>
+          <Snackbar bodyStyle={AppRootStyle.snackBarStyle} open={this.state.open} message={this.state.message} autoHideDuration={4000} onRequestClose={this.handleRequestClose}/>
         </div>
       </MuiThemeProvider>
     </StyleRoot>);
