@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 
 import {List, ListItem} from 'material-ui/List';
 //Stores
-import StoreGithub from '../stores/StoreGithub';
+import StoreDroneList from '../stores/StoreDroneList';
 // Style Modules
 import GeneralStyle from '../styles/GeneralStyle';
 import ResultStyle from '../styles/ResultStyle';
@@ -15,7 +15,7 @@ class ResultPanel extends React.Component {
 
   constructor(props) {
     super(props);
-    this.onCurrentStoreGithubChange = this.onCurrentStoreGithubChange.bind(this);
+    this.onCurrentStoreDroneListChange = this.onCurrentStoreDroneListChange.bind(this);
 
     this.state = {
       issueList: []
@@ -23,8 +23,8 @@ class ResultPanel extends React.Component {
 
   }
 
-  onCurrentStoreGithubChange() {
-    let nextArray: Array<any> = StoreGithub.getGithubArray();
+  onCurrentStoreDroneListChange() {
+    let nextArray: Array<any> = StoreDroneList.getDroneArray();
     let listToRender: Array<any> = [];
     nextArray.forEach((item, index, array) => {
       let elementToCreate: any = <ListItem onMouseDown={this.openTab.bind(this, item.html_url)} innerDivStyle={ResultStyle.listItemStyle} key={index} primaryText={item.title}/>;
@@ -39,7 +39,7 @@ class ResultPanel extends React.Component {
   }
 
   componentWillMount() {
-    this.onCurrentStoreGithubChange();
+    this.onCurrentStoreDroneListChange();
   }
 
   render() {
@@ -61,11 +61,11 @@ class ResultPanel extends React.Component {
   }
 
   componentDidMount() {
-    StoreGithub.addChangeListener(this.onCurrentStoreGithubChange);
+    StoreDroneList.addChangeListener(this.onCurrentStoreDroneListChange);
   }
 
   componentWillUnmount() {
-    StoreGithub.removeChangeListener(this.onCurrentStoreGithubChange);
+    StoreDroneList.removeChangeListener(this.onCurrentStoreDroneListChange);
   }
 
 }

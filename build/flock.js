@@ -47719,7 +47719,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Dispatcher
 function dispatchAction(parameter) {
   var Action = {
-    type: 'update_github_array',
+    type: 'update_drone_array',
     parameter: parameter
   };
   _AppDispatcher2.default.dispatch(Action);
@@ -50685,9 +50685,9 @@ var _Paper2 = _interopRequireDefault(_Paper);
 
 var _List = __webpack_require__(516);
 
-var _StoreGithub = __webpack_require__(518);
+var _StoreDroneList = __webpack_require__(518);
 
-var _StoreGithub2 = _interopRequireDefault(_StoreGithub);
+var _StoreDroneList2 = _interopRequireDefault(_StoreDroneList);
 
 var _GeneralStyle = __webpack_require__(81);
 
@@ -50721,7 +50721,7 @@ var ResultPanel = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ResultPanel.__proto__ || Object.getPrototypeOf(ResultPanel)).call(this, props));
 
-    _this.onCurrentStoreGithubChange = _this.onCurrentStoreGithubChange.bind(_this);
+    _this.onCurrentStoreDroneListChange = _this.onCurrentStoreDroneListChange.bind(_this);
 
     _this.state = {
       issueList: []
@@ -50731,11 +50731,11 @@ var ResultPanel = function (_React$Component) {
   }
 
   _createClass(ResultPanel, [{
-    key: 'onCurrentStoreGithubChange',
-    value: function onCurrentStoreGithubChange() {
+    key: 'onCurrentStoreDroneListChange',
+    value: function onCurrentStoreDroneListChange() {
       var _this2 = this;
 
-      var nextArray = _StoreGithub2.default.getGithubArray();
+      var nextArray = _StoreDroneList2.default.getDroneArray();
       var listToRender = [];
       nextArray.forEach(function (item, index, array) {
         var elementToCreate = _react2.default.createElement(_List.ListItem, { onMouseDown: _this2.openTab.bind(_this2, item.html_url), innerDivStyle: _ResultStyle2.default.listItemStyle, key: index, primaryText: item.title });
@@ -50752,7 +50752,7 @@ var ResultPanel = function (_React$Component) {
   }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.onCurrentStoreGithubChange();
+      this.onCurrentStoreDroneListChange();
     }
   }, {
     key: 'render',
@@ -50788,12 +50788,12 @@ var ResultPanel = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      _StoreGithub2.default.addChangeListener(this.onCurrentStoreGithubChange);
+      _StoreDroneList2.default.addChangeListener(this.onCurrentStoreDroneListChange);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      _StoreGithub2.default.removeChangeListener(this.onCurrentStoreGithubChange);
+      _StoreDroneList2.default.removeChangeListener(this.onCurrentStoreDroneListChange);
     }
   }]);
 
@@ -51042,20 +51042,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var CHANGE_EVENT = 'change';
 
-var StoreGithub = function (_EventEmitter) {
-  _inherits(StoreGithub, _EventEmitter);
+var StoreDroneList = function (_EventEmitter) {
+  _inherits(StoreDroneList, _EventEmitter);
 
-  function StoreGithub() {
-    _classCallCheck(this, StoreGithub);
+  function StoreDroneList() {
+    _classCallCheck(this, StoreDroneList);
 
-    var _this = _possibleConstructorReturn(this, (StoreGithub.__proto__ || Object.getPrototypeOf(StoreGithub)).call(this));
+    var _this = _possibleConstructorReturn(this, (StoreDroneList.__proto__ || Object.getPrototypeOf(StoreDroneList)).call(this));
 
-    _this.githubArray = [];
+    _this.droneArray = [];
     _this.dispatchToken = _AppDispatcher2.default.register(_this.handleAction.bind(_this));
     return _this;
   }
 
-  _createClass(StoreGithub, [{
+  _createClass(StoreDroneList, [{
     key: 'addChangeListener',
     value: function addChangeListener(callback) {
       this.on(CHANGE_EVENT, callback);
@@ -51066,20 +51066,20 @@ var StoreGithub = function (_EventEmitter) {
       this.removeListener(CHANGE_EVENT, callback);
     }
   }, {
-    key: 'getGithubArray',
-    value: function getGithubArray() {
-      return this.githubArray;
+    key: 'getDroneArray',
+    value: function getDroneArray() {
+      return this.droneArray;
     }
   }, {
-    key: 'setGithubArray',
-    value: function setGithubArray(parameter) {
-      this.githubArray = parameter;
+    key: 'setDroneArray',
+    value: function setDroneArray(parameter) {
+      this.droneArray = parameter;
     }
   }, {
     key: 'handleAction',
     value: function handleAction(Action) {
-      if (Action.type === 'update_github_array') {
-        this.setGithubArray(Action.parameter);
+      if (Action.type === 'update_drone_array') {
+        this.setDroneArray(Action.parameter);
         this.emitChange();
       }
     }
@@ -51090,10 +51090,10 @@ var StoreGithub = function (_EventEmitter) {
     }
   }]);
 
-  return StoreGithub;
+  return StoreDroneList;
 }(_events2.default);
 
-exports.default = new StoreGithub();
+exports.default = new StoreDroneList();
 
 /***/ }),
 /* 519 */

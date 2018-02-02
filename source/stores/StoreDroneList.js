@@ -4,11 +4,11 @@ import EventEmitter from 'events';
 
 const CHANGE_EVENT = 'change';
 
-class StoreGithub extends EventEmitter {
+class StoreDroneList extends EventEmitter {
 
   constructor() {
     super();
-    this.githubArray = [];
+    this.droneArray = [];
     this.dispatchToken = AppDispatcher.register(this.handleAction.bind(this));
   }
 
@@ -20,17 +20,17 @@ class StoreGithub extends EventEmitter {
     this.removeListener(CHANGE_EVENT, callback);
   }
 
-  getGithubArray() {
-    return this.githubArray;
+  getDroneArray() {
+    return this.droneArray;
   }
 
-  setGithubArray(parameter) {
-    this.githubArray = parameter;
+  setDroneArray(parameter) {
+    this.droneArray = parameter;
   }
 
   handleAction(Action) {
-    if (Action.type === 'update_github_array') {
-      this.setGithubArray(Action.parameter);
+    if (Action.type === 'update_drone_array') {
+      this.setDroneArray(Action.parameter);
       this.emitChange();
     }
   }
@@ -41,4 +41,4 @@ class StoreGithub extends EventEmitter {
 
 }
 
-export default new StoreGithub();
+export default new StoreDroneList();

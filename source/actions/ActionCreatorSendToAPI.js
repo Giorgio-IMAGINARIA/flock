@@ -39,7 +39,7 @@ console.log('array: ', array);
 
 function dispatchAction(parameter : Array<any>) {
   let Action: ActionObject = {
-    type: 'update_github_array',
+    type: 'update_drone_array',
     parameter: parameter
   };
   AppDispatcher.dispatch(Action);
