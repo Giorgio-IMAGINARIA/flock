@@ -33,7 +33,7 @@ interface DroneObject {
   droneID: any
 }
 
-The reason for the "any type is that the droneID could be  string or a number"
+The reason for the "any" type is that the droneID could be  string or a number"
 
 It's interesting to notice that not all characters are allowed in case the user choses to type the drone ID. A check is done on the text input to catch all invalid characters through the use of a Regular expression and then allow only strings representing integers:
 
