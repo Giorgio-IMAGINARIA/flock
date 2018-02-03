@@ -8,7 +8,32 @@
 6. Open a browser window and navigate to: "http://localhost:3001";
 7. The API address to which to connect is in environment.js
 
-# EXPLANATION
+
+# INITIAL ASSUMPTIONS
+
+The initial assumptions were that the time was limited and that 2 main features to implement were showing details for all drones and handling the API errors gracefully. The app should have been designed to handle a big amount of data and to be as much modular as I could, to be more manageable by me or other developers in the future.
+
+Other considerations were oriented towards a language as ECMAScript that is widespread and well supported by now and a framework as React that is very svelte for these kind of projects.
+
+React is a UI library that used in collaboration with other libraries helps creating a framework-like ecosystem which is an ideal tool for MVC-like applications.
+
+Also the code base can be easily implemented in React Native and used for the creation of mobile applications.     
+
+
+# COMPROMISES
+
+I tried to create a modular future-proof app with modules that deal with different concerns, but I could have done more that way. For instance the SnackBar showing errors could have been contained in a separated module instead of being directly used in the APP module.
+
+Not all the style objects are confined in the "styles" directory, plus the styles themselves could be improved to provide more responsiveness beyond what the Material UI library already does out of the box.
+
+The errors could be handled better, for instance by repeating the operation requested to the API for a certain amount of times without disclosing the error to the client. After that a message should be anyway provided as well as a choice for the user to reset the query.
+
+The filter panel could have been more modular to host more filter sub-panels for future improvements of the API.
+
+Going on developing the app without thinking at these initial compromises and addressing them could lead to an increasing amount of time spent for the code maintenance and for the implementation of further features.  
+
+
+# GENERAL EXPLANATION
 
 The application has a back-end written in Node.js and it uses Express.js as framework. The front-end is instead written in ES6, using React + Flux as framework, Flow as type-checking language, Radium as Javascript-CSS helper, Material-UI as UI library and transpiled with Webpack.
 
@@ -33,7 +58,7 @@ interface DroneObject {
   droneID: any
 }
 
-The reason for the "any" type is that the droneID could be  string or a number"
+The reason for the "any" type is that the droneID could be  string or a number.
 
 It's interesting to notice that not all characters are allowed in case the user choses to type the drone ID. A check is done on the text input to catch all invalid characters through the use of a Regular expression and then allow only strings representing integers:
 
@@ -93,6 +118,9 @@ and then rendered:
 <TableBody displayRowCheckbox={false}>
  {this.state.droneArray}
 </TableBody>
+
+The app is ready to be deployed to the Google Cloud Platform after the inclusion of the app.yaml file (the app modules are built in Yarn which guarantees consistency for new installations).
+
 
 # FUTURE IMPROVEMENTS
 
