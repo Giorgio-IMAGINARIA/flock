@@ -10007,6 +10007,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var ADD_ARTICLE = exports.ADD_ARTICLE = "ADD_ARTICLE";
 var DELETE_ALL_ARTICLES = exports.DELETE_ALL_ARTICLES = "DELETE_ALL_ARTICLES";
+var FETCH_DRONES = exports.FETCH_DRONES = "FETCH_DRONES";
 
 /***/ }),
 /* 109 */
@@ -34597,6 +34598,11 @@ var rootReducer = function rootReducer() {
   var action = arguments[1];
 
   switch (action.type) {
+    case _actionTypes.FETCH_DRONES:
+      return _extends({}, state, {
+        articles: [].concat(_toConsumableArray(state.articles), [action.payload])
+      });
+      break;
     case _actionTypes.ADD_ARTICLE:
       return _extends({}, state, {
         articles: [].concat(_toConsumableArray(state.articles), [action.payload])
@@ -51424,6 +51430,8 @@ var _index2 = _interopRequireDefault(_index);
 
 var _addArticle2 = __webpack_require__(546);
 
+var _fetchDrones2 = __webpack_require__(582);
+
 var _deleteAllArticles2 = __webpack_require__(547);
 
 var _ActionCreatorSendToAPI = __webpack_require__(548);
@@ -51472,16 +51480,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // REDUX ACTIONS
 
 
-// import {
-//   selectSubreddit,
-//   fetchPostsIfNeeded,
-//   invalidateSubreddit
-// } from '../actions/fetchDrones'
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     addArticle: function addArticle(article) {
       return dispatch((0, _addArticle2.addArticle)(article));
+    },
+    fetchDrones: function fetchDrones(article) {
+      return dispatch((0, _fetchDrones2.fetchDrones)(article));
     },
     deleteAllArticles: function deleteAllArticles() {
       return dispatch((0, _deleteAllArticles2.deleteAllArticles)());
@@ -51507,6 +51512,7 @@ var QueryPanel = function (_React$Component) {
     _this.IDRadioGroupChange = _this.IDRadioGroupChange.bind(_this);
     _this.validateDetails = _this.validateDetails.bind(_this);
     _this.deleteArticle = _this.deleteArticle.bind(_this);
+    _this.fetchDrones = _this.fetchDrones.bind(_this);
     _this.onCurrentReduxStoreChange = _this.onCurrentReduxStoreChange.bind(_this);
 
     _this.state = {
@@ -51554,6 +51560,11 @@ var QueryPanel = function (_React$Component) {
     key: 'deleteArticle',
     value: function deleteArticle() {
       this.props.deleteAllArticles();
+    }
+  }, {
+    key: 'fetchDrones',
+    value: function fetchDrones() {
+      this.props.fetchDrones({ name: 'React Redux Tutorial for Beginners', id: 1 });
     }
   }, {
     key: 'render',
@@ -51624,6 +51635,11 @@ var QueryPanel = function (_React$Component) {
               _react2.default.createElement(
                 _FloatingActionButton2.default,
                 { mini: true, onMouseDown: this.deleteArticle },
+                _react2.default.createElement(_chevronRight2.default, null)
+              ),
+              _react2.default.createElement(
+                _FloatingActionButton2.default,
+                { backgroundColor: "#F4511E", mini: true, onMouseDown: this.fetchDrones },
                 _react2.default.createElement(_chevronRight2.default, null)
               )
             )
@@ -56815,6 +56831,37 @@ var _AppDispatcher = __webpack_require__(65);
 var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 582 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchDrones = undefined;
+
+var _actionTypes = __webpack_require__(108);
+
+function fetchPosts() {
+  return function (dispatch) {
+    var address = 'https://bobs-epic-drone-shack-inc.herokuapp.com/api/v0/drones';
+    // return fetch(address, {method: 'GET'}).then(response => response.json()).then(json => dispatch(receivePosts(subreddit, json)))
+    return fetch(address, { method: 'GET' }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      console.log('the JSON: ', json);
+    });
+  };
+};
+
+var fetchDrones = exports.fetchDrones = function fetchDrones(article) {
+  console.log('mensolassima');
+  return { type: _actionTypes.FETCH_DRONES, payload: article };
+};
 
 /***/ })
 /******/ ]);

@@ -7,16 +7,13 @@ import {connect} from "react-redux";
 import ReduxStore from '../store/index';
 // REDUX ACTIONS
 import {addArticle} from "../actions/addArticle";
+import {fetchDrones} from "../actions/fetchDrones";
 import {deleteAllArticles} from "../actions/deleteAllArticles";
-// import {
-//   selectSubreddit,
-//   fetchPostsIfNeeded,
-//   invalidateSubreddit
-// } from '../actions/fetchDrones'
 
 const mapDispatchToProps = dispatch => {
   return {
     addArticle: article => dispatch(addArticle(article)),
+    fetchDrones: article => dispatch(fetchDrones(article)),
     deleteAllArticles: () => dispatch(deleteAllArticles())
   };
 };
@@ -46,6 +43,7 @@ class QueryPanel extends React.Component {
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
     this.deleteArticle = this.deleteArticle.bind(this);
+    this.fetchDrones = this.fetchDrones.bind(this);
     this.onCurrentReduxStoreChange = this.onCurrentReduxStoreChange.bind(this);
 
     this.state = {
@@ -86,8 +84,13 @@ class QueryPanel extends React.Component {
     };
     ActionCreatorSendToAPI(objectToSend);
   }
+
   deleteArticle() {
     this.props.deleteAllArticles();
+  }
+
+  fetchDrones() {
+    this.props.fetchDrones({name: 'React Redux Tutorial for Beginners', id: 1});
   }
 
   render() {
@@ -129,6 +132,9 @@ class QueryPanel extends React.Component {
               <RightArrow/>
             </FloatingActionButton>
             <FloatingActionButton mini={true} onMouseDown={this.deleteArticle}>
+              <RightArrow/>
+            </FloatingActionButton>
+            <FloatingActionButton backgroundColor={"#F4511E"} mini={true} onMouseDown={this.fetchDrones}>
               <RightArrow/>
             </FloatingActionButton>
           </div>
