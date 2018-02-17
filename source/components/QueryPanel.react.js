@@ -1,6 +1,20 @@
 // @flow
 // React
 import React from 'react';
+// REACT-REDUX
+import {connect} from "react-redux";
+// REDUX STORE
+import ReduxStore from '../store/index';
+// REDUX ACTIONS
+import {addArticle} from "../actions/index";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addArticle: article => dispatch(addArticle(article))
+  };
+};
+
+
 //Action Creators
 import ActionCreatorSendToAPI from '../actions/ActionCreatorSendToAPI';
 //Material UI
@@ -12,10 +26,6 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 // Style Modules
 import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
-// REDUX STORE
-import ReduxStore from '../store/index';
-// REDUX ACTIONS
-import {addArticle} from "../actions/index";
 
 interface DroneObject {
   droneID: any
@@ -23,8 +33,8 @@ interface DroneObject {
 
 class QueryPanel extends React.Component {
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.handleChangeIDText = this.handleChangeIDText.bind(this);
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
@@ -58,8 +68,10 @@ class QueryPanel extends React.Component {
     }
 
   validateDetails() {
-    ReduxStore.dispatch(addArticle({name: 'React Redux Tutorial for Beginners', id: 1}));
-    
+    // ReduxStore.dispatch(addArticle({name: 'React Redux Tutorial for Beginners', id: 1}));
+    console.log('this.props', this.props);
+    this.props.addArticle({ name: 'React Redux Tutorial for Beginners', id: 1 });
+
     let objectToSend: DroneObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
@@ -123,4 +135,6 @@ class QueryPanel extends React.Component {
   }
 }
 
-export default QueryPanel;
+const QueryPanelToExport = connect(null, mapDispatchToProps)(QueryPanel);
+
+export default QueryPanelToExport;

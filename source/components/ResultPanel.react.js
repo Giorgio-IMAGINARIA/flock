@@ -1,13 +1,12 @@
 // @flow
 // React
 import React from 'react';
+// REACT-REDUX
+import {connect} from "react-redux";
 //Material UI
 import Paper from 'material-ui/Paper';
-// REDUX
-import {connect} from "react-redux";
 
 const mapStateToProps = state => {
-  console.log('mensola: ', state);
   return {articles: state.articles};
 };
 
