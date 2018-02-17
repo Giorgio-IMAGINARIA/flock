@@ -12,6 +12,10 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 // Style Modules
 import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
+// REDUX STORE
+import ReduxStore from '../store/index';
+// REDUX ACTIONS
+import {addArticle} from "../actions/index";
 
 interface DroneObject {
   droneID: any
@@ -25,12 +29,17 @@ class QueryPanel extends React.Component {
     this.handleChangeIDText = this.handleChangeIDText.bind(this);
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
+    this.onCurrentReduxStoreChange = this.onCurrentReduxStoreChange.bind(this);
 
     this.state = {
       IDInputDisabledState: true,
       IDTextFieldValueState: ''
     };
 
+  }
+
+  onCurrentReduxStoreChange() {
+    console.log('Redux store state: ', ReduxStore.getState());
   }
 
   IDRadioGroupChange(evt : any, value : string): void {
@@ -49,6 +58,8 @@ class QueryPanel extends React.Component {
     }
 
   validateDetails() {
+    ReduxStore.dispatch(addArticle({name: 'React Redux Tutorial for Beginners', id: 1}));
+    
     let objectToSend: DroneObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
@@ -101,6 +112,14 @@ class QueryPanel extends React.Component {
       </div>
 
     </Paper>);
+  }
+
+  componentDidMount() {
+    ReduxStore.subscribe(this.onCurrentReduxStoreChange);
+  }
+
+  componentWillUnmount() {
+    ReduxStore.unsubscribe(this.onCurrentReduxStoreChange);
   }
 }
 
