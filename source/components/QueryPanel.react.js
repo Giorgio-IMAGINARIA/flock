@@ -8,18 +8,18 @@ import ReduxStore from '../store/index';
 // REDUX ACTIONS
 import {addArticle} from "../actions/addArticle";
 import {deleteAllArticles} from "../actions/deleteAllArticles";
-import {
-  selectSubreddit,
-  fetchPostsIfNeeded,
-  invalidateSubreddit
-} from '../actions/fetchDrones'
+// import {
+//   selectSubreddit,
+//   fetchPostsIfNeeded,
+//   invalidateSubreddit
+// } from '../actions/fetchDrones'
 
 const mapDispatchToProps = dispatch => {
   return {
-    addArticle: article => dispatch(addArticle(article))
+    addArticle: article => dispatch(addArticle(article)),
+    deleteAllArticles: () => dispatch(deleteAllArticles())
   };
 };
-
 
 //Action Creators
 import ActionCreatorSendToAPI from '../actions/ActionCreatorSendToAPI';
@@ -77,7 +77,7 @@ class QueryPanel extends React.Component {
   validateDetails() {
     // ReduxStore.dispatch(addArticle({name: 'React Redux Tutorial for Beginners', id: 1}));
     console.log('this.props', this.props);
-    this.props.addArticle({ name: 'React Redux Tutorial for Beginners', id: 1 });
+    this.props.addArticle({name: 'React Redux Tutorial for Beginners', id: 1});
 
     let objectToSend: DroneObject = {
       droneID: this.state.IDTextFieldValueState
@@ -87,7 +87,7 @@ class QueryPanel extends React.Component {
     ActionCreatorSendToAPI(objectToSend);
   }
   deleteArticle() {
-    this.props.addArticle({ name: 'React Redux Tutorial for Beginners', id: 1 });
+    this.props.deleteAllArticles();
   }
 
   render() {
