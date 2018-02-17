@@ -6,7 +6,13 @@ import {connect} from "react-redux";
 // REDUX STORE
 import ReduxStore from '../store/index';
 // REDUX ACTIONS
-import {addArticle} from "../actions/index";
+import {addArticle} from "../actions/addArticle";
+import {deleteAllArticles} from "../actions/deleteAllArticles";
+import {
+  selectSubreddit,
+  fetchPostsIfNeeded,
+  invalidateSubreddit
+} from '../actions/fetchDrones'
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -39,6 +45,7 @@ class QueryPanel extends React.Component {
     this.handleChangeIDText = this.handleChangeIDText.bind(this);
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
     this.validateDetails = this.validateDetails.bind(this);
+    this.deleteArticle = this.deleteArticle.bind(this);
     this.onCurrentReduxStoreChange = this.onCurrentReduxStoreChange.bind(this);
 
     this.state = {
@@ -79,6 +86,9 @@ class QueryPanel extends React.Component {
     };
     ActionCreatorSendToAPI(objectToSend);
   }
+  deleteArticle() {
+    this.props.addArticle({ name: 'React Redux Tutorial for Beginners', id: 1 });
+  }
 
   render() {
     return (<Paper style={QueryStyle.paperStyle} zDepth={2}>
@@ -116,6 +126,9 @@ class QueryPanel extends React.Component {
         <div style={QueryStyle.submitRowStyle}>
           <div>
             <FloatingActionButton mini={true} secondary={true} onMouseDown={this.validateDetails}>
+              <RightArrow/>
+            </FloatingActionButton>
+            <FloatingActionButton mini={true} onMouseDown={this.deleteArticle}>
               <RightArrow/>
             </FloatingActionButton>
           </div>

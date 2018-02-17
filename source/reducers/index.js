@@ -1,4 +1,5 @@
-import {ADD_ARTICLE} from "../constants/action-types";
+import {combineReducers} from 'redux'
+import {ADD_ARTICLE, DELETE_ALL_ARTICLES} from "../constants/action-types";
 
 const initialState = {
   articles: []
@@ -7,7 +8,6 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ARTICLE:
-
       return {
         ...state,
         articles: [
@@ -15,10 +15,13 @@ const rootReducer = (state = initialState, action) => {
           action.payload
         ]
       };
-
-      // state.articles.push(action.payload);
-      // return state;
-
+      break;
+    case DELETE_ALL_ARTICLES:
+      return {
+        ...state,
+        articles: []
+      };
+      break;
     default:
       return state;
   }

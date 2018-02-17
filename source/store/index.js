@@ -1,4 +1,29 @@
-import { createStore } from "redux";
+import {createStore, applyMiddleware} from "redux";
+import thunkMiddleware from 'redux-thunk';
+import {createLogger} from 'redux-logger'
 import rootReducer from "../reducers/index";
-const store = createStore(rootReducer);
+
+const loggerMiddleware = createLogger();
+
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleware));
 export default store;
+
+
+
+// import { createStore, applyMiddleware } from 'redux'
+// import thunkMiddleware from 'redux-thunk'
+// import { createLogger } from 'redux-logger'
+// import rootReducer from "../reducers/fetchDrone";
+//
+// const loggerMiddleware = createLogger()
+//
+// export default function configureStore(preloadedState) {
+//   return createStore(
+//     rootReducer,
+//     preloadedState,
+//     applyMiddleware(
+//       thunkMiddleware,
+//       loggerMiddleware
+//     )
+//   )
+// }
