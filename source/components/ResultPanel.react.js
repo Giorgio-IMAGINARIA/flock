@@ -69,14 +69,14 @@ class ResultPanel extends React.Component {
         </h2>
       </div>
       <ul className="list-group list-group-flush">
-        {
+        {/* {
           this.props.articles.map(el => {
             console.log('asdrob: ', el);
             return <li className="list-group-item" key={el.id}>
               {el.name}
             </li>
           })
-        }
+        } */}
       </ul>
       <div style={GeneralStyle.paperContentWrapStyle}>
         <Table>

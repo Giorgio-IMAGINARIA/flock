@@ -1,8 +1,19 @@
+// @flow
 import {combineReducers} from 'redux'
 import {ADD_ARTICLE, DELETE_ALL_ARTICLES, FETCH_DRONES} from "../constants/action-types";
+// INTERFACES
+interface DroneObject {
+  currency: string,
+  droneId: number,
+  name: string,
+  numCrashes: number,
+  numFlights: number,
+  price: number
+}
 
 const initialState = {
-  articles: []
+  articles: [],
+  droneArray: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -10,8 +21,8 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_DRONES:
       return {
         ...state,
-        articles: [
-          ...state.articles,
+        droneArray: [
+          ...state.droneArray,
           action.payload
         ]
       };

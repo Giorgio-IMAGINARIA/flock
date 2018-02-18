@@ -25,6 +25,7 @@ class StoreDroneList extends EventEmitter {
   }
 
   setDroneArray(parameter) {
+    console.log('parameter: ', parameter);
     this.droneArray = parameter;
   }
 

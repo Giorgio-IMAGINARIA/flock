@@ -30,7 +30,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
 
-interface DroneObject {
+interface DroneQueryObject {
   droneID: any
 }
 
@@ -73,7 +73,7 @@ class QueryPanel extends React.Component {
     }
 
   validateDetails() {
-    let objectToSend: DroneObject = {
+    let objectToSend: DroneQueryObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
         : '*'
@@ -90,7 +90,13 @@ class QueryPanel extends React.Component {
   }
 
   fetchDrones() {
-    this.props.fetchDrones({name: 'React Redux Tutorial for Beginners', id: 1});
+    let objectToSend: DroneQueryObject = {
+      droneID: this.state.IDTextFieldValueState
+        ? parseInt(this.state.IDTextFieldValueState)
+        : '*'
+    };
+
+    this.props.fetchDrones(objectToSend);
   }
 
   render() {
@@ -131,6 +137,7 @@ class QueryPanel extends React.Component {
             <FloatingActionButton mini={true} secondary={true} onMouseDown={this.validateDetails}>
               <RightArrow/>
             </FloatingActionButton>
+
             <FloatingActionButton backgroundColor={"#43A047"} mini={true} onMouseDown={this.addArticle}>
               <RightArrow/>
             </FloatingActionButton>
