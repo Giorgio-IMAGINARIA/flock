@@ -34686,7 +34686,7 @@ var rootReducer = function rootReducer() {
   switch (action.type) {
     case _actionTypes.FETCH_DRONES:
       return _extends({}, state, {
-        droneArray: [].concat(_toConsumableArray(state.droneArray), [action.payload])
+        droneArray: [action.payload]
       });
       break;
     case _actionTypes.ADD_ARTICLE:
@@ -54451,7 +54451,6 @@ var ResultPanel = function (_React$Component) {
             'A visualisation of the drones filtered in the query panel'
           )
         ),
-        _react2.default.createElement('ul', { className: 'list-group list-group-flush' }),
         _react2.default.createElement(
           'div',
           { style: _GeneralStyle2.default.paperContentWrapStyle },
@@ -54499,7 +54498,49 @@ var ResultPanel = function (_React$Component) {
             _react2.default.createElement(
               _Table.TableBody,
               { displayRowCheckbox: false },
-              this.state.droneArray
+              this.props.droneArray.map(function (item, index) {
+                return;
+
+                // <li className="list-group-item" key={el.id}>
+                //   {el.name}
+                // </li>
+
+
+                _react2.default.createElement(
+                  _Table.TableRow,
+                  { key: index },
+                  _react2.default.createElement(
+                    _Table.TableRowColumn,
+                    null,
+                    item.droneId
+                  ),
+                  _react2.default.createElement(
+                    _Table.TableRowColumn,
+                    null,
+                    item.name
+                  ),
+                  _react2.default.createElement(
+                    _Table.TableRowColumn,
+                    null,
+                    item.numCrashes
+                  ),
+                  _react2.default.createElement(
+                    _Table.TableRowColumn,
+                    null,
+                    item.numFlights
+                  ),
+                  _react2.default.createElement(
+                    _Table.TableRowColumn,
+                    null,
+                    item.price
+                  ),
+                  _react2.default.createElement(
+                    _Table.TableRowColumn,
+                    null,
+                    item.currency
+                  )
+                );
+              })
             )
           )
         )

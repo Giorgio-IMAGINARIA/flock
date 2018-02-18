@@ -68,16 +68,16 @@ class ResultPanel extends React.Component {
           A visualisation of the drones filtered in the query panel
         </h2>
       </div>
-      <ul className="list-group list-group-flush">
-        {/* {
+      {/* <ul className="list-group list-group-flush">
+        {
           this.props.articles.map(el => {
             console.log('asdrob: ', el);
             return <li className="list-group-item" key={el.id}>
               {el.name}
             </li>
           })
-        } */}
-      </ul>
+        }
+      </ul> */}
       <div style={GeneralStyle.paperContentWrapStyle}>
         <Table>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
@@ -91,7 +91,30 @@ class ResultPanel extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            {this.state.droneArray}
+            {
+              this.props.droneArray.map((item, index) => {
+                return
+
+
+                // <li className="list-group-item" key={el.id}>
+                //   {el.name}
+                // </li>
+
+
+                <TableRow key={index}>
+                  <TableRowColumn>{item.droneId}</TableRowColumn>
+                  <TableRowColumn>{item.name}</TableRowColumn>
+                  <TableRowColumn>{item.numCrashes}</TableRowColumn>
+                  <TableRowColumn>{item.numFlights}</TableRowColumn>
+                  <TableRowColumn>{item.price}</TableRowColumn>
+                  <TableRowColumn>{item.currency}</TableRowColumn>
+                </TableRow>;
+
+
+
+              })
+            }
+            {/* {this.state.droneArray} */}
           </TableBody>
         </Table>
       </div>

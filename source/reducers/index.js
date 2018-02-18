@@ -22,7 +22,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         droneArray: [
-          ...state.droneArray,
           action.payload
         ]
       };
