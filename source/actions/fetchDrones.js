@@ -1,16 +1,27 @@
 import {FETCH_DRONES} from "../constants/action-types";
 
-function fetchPosts() {
+function fetchDronesFromAPI() {
   return dispatch => {
-    let address = `https://bobs-epic-drone-shack-inc.herokuapp.com/api/v0/drones`;
-    // return fetch(address, {method: 'GET'}).then(response => response.json()).then(json => dispatch(receivePosts(subreddit, json)))
+    let address = `https://api.github.com/repos/atom/atom/issues`;
     return fetch(address, {method: 'GET'}).then(response => response.json()).then(json => {
-      console.log('the JSON: ', json);
+      dispatch(dispatchDrones(json))
     })
   };
 };
 
 export const fetchDrones = article => {
-  console.log('mensolassima');
-  return {type: FETCH_DRONES, payload: article};
+  return(dispatch) => {
+    return dispatch(fetchDronesFromAPI())
+  };
+};
+
+function dispatchDrones(json) {
+  console.log('the JSON: ', json);
+  return {
+    type: FETCH_DRONES,
+    payload: {
+      name: 'React Redux Tutorial for Beginners',
+      id: 1
+    }
+  };
 };
