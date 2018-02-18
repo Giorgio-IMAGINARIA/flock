@@ -73,16 +73,16 @@ class QueryPanel extends React.Component {
     }
 
   validateDetails() {
-    // ReduxStore.dispatch(addArticle({name: 'React Redux Tutorial for Beginners', id: 1}));
-    console.log('this.props', this.props);
-    this.props.addArticle({name: 'React Redux Tutorial for Beginners', id: 1});
-
     let objectToSend: DroneObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
         : '*'
     };
     ActionCreatorSendToAPI(objectToSend);
+  }
+
+  addArticle() {
+    this.props.addArticle({name: 'React Redux Tutorial for Beginners', id: 1});
   }
 
   deleteArticle() {
@@ -129,6 +129,9 @@ class QueryPanel extends React.Component {
         <div style={QueryStyle.submitRowStyle}>
           <div>
             <FloatingActionButton mini={true} secondary={true} onMouseDown={this.validateDetails}>
+              <RightArrow/>
+            </FloatingActionButton>
+            <FloatingActionButton backgroundColor={"#43A047"} mini={true} onMouseDown={this.addArticle}>
               <RightArrow/>
             </FloatingActionButton>
             <FloatingActionButton mini={true} onMouseDown={this.deleteArticle}>

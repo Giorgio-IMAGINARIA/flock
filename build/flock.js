@@ -51547,14 +51547,15 @@ var QueryPanel = function (_React$Component) {
   }, {
     key: 'validateDetails',
     value: function validateDetails() {
-      // ReduxStore.dispatch(addArticle({name: 'React Redux Tutorial for Beginners', id: 1}));
-      console.log('this.props', this.props);
-      this.props.addArticle({ name: 'React Redux Tutorial for Beginners', id: 1 });
-
       var objectToSend = {
         droneID: this.state.IDTextFieldValueState ? parseInt(this.state.IDTextFieldValueState) : '*'
       };
       (0, _ActionCreatorSendToAPI2.default)(objectToSend);
+    }
+  }, {
+    key: 'addArticle',
+    value: function addArticle() {
+      this.props.addArticle({ name: 'React Redux Tutorial for Beginners', id: 1 });
     }
   }, {
     key: 'deleteArticle',
@@ -51630,6 +51631,11 @@ var QueryPanel = function (_React$Component) {
               _react2.default.createElement(
                 _FloatingActionButton2.default,
                 { mini: true, secondary: true, onMouseDown: this.validateDetails },
+                _react2.default.createElement(_chevronRight2.default, null)
+              ),
+              _react2.default.createElement(
+                _FloatingActionButton2.default,
+                { backgroundColor: "#43A047", mini: true, onMouseDown: this.addArticle },
                 _react2.default.createElement(_chevronRight2.default, null)
               ),
               _react2.default.createElement(
