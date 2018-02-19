@@ -15282,24 +15282,6 @@ var loggerMiddleware = (0, _reduxLogger.createLogger)();
 var store = (0, _redux.createStore)(_index2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware));
 exports.default = store;
 
-// import { createStore, applyMiddleware } from 'redux'
-// import thunkMiddleware from 'redux-thunk'
-// import { createLogger } from 'redux-logger'
-// import rootReducer from "../reducers/fetchDrone";
-//
-// const loggerMiddleware = createLogger()
-//
-// export default function configureStore(preloadedState) {
-//   return createStore(
-//     rootReducer,
-//     preloadedState,
-//     applyMiddleware(
-//       thunkMiddleware,
-//       loggerMiddleware
-//     )
-//   )
-// }
-
 /***/ }),
 /* 176 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -54331,10 +54313,6 @@ var _Paper2 = _interopRequireDefault(_Paper);
 
 var _Table = __webpack_require__(568);
 
-var _StoreDroneList = __webpack_require__(577);
-
-var _StoreDroneList2 = _interopRequireDefault(_StoreDroneList);
-
 var _GeneralStyle = __webpack_require__(87);
 
 var _GeneralStyle2 = _interopRequireDefault(_GeneralStyle);
@@ -54358,10 +54336,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return { articles: state.articles };
+  return { droneArray: state.droneArray };
 };
-//Stores
-
 // Style Modules
 
 var ResultPanel = function (_React$Component) {
@@ -54370,70 +54346,12 @@ var ResultPanel = function (_React$Component) {
   function ResultPanel() {
     _classCallCheck(this, ResultPanel);
 
-    var _this = _possibleConstructorReturn(this, (ResultPanel.__proto__ || Object.getPrototypeOf(ResultPanel)).call(this));
-
-    _this.onCurrentStoreDroneListChange = _this.onCurrentStoreDroneListChange.bind(_this);
-    _this.state = {
-      droneArray: []
-    };
-
-    return _this;
+    return _possibleConstructorReturn(this, (ResultPanel.__proto__ || Object.getPrototypeOf(ResultPanel)).call(this));
   }
 
   _createClass(ResultPanel, [{
-    key: 'onCurrentStoreDroneListChange',
-    value: function onCurrentStoreDroneListChange() {
-      var nextArray = _StoreDroneList2.default.getDroneArray();
-      var droneList = [];
-      nextArray.forEach(function (item, index) {
-        var elementToCreate = _react2.default.createElement(
-          _Table.TableRow,
-          { key: index },
-          _react2.default.createElement(
-            _Table.TableRowColumn,
-            null,
-            item.droneId
-          ),
-          _react2.default.createElement(
-            _Table.TableRowColumn,
-            null,
-            item.name
-          ),
-          _react2.default.createElement(
-            _Table.TableRowColumn,
-            null,
-            item.numCrashes
-          ),
-          _react2.default.createElement(
-            _Table.TableRowColumn,
-            null,
-            item.numFlights
-          ),
-          _react2.default.createElement(
-            _Table.TableRowColumn,
-            null,
-            item.price
-          ),
-          _react2.default.createElement(
-            _Table.TableRowColumn,
-            null,
-            item.currency
-          )
-        );
-        droneList.push(elementToCreate);
-      });
-      this.setState({ droneArray: droneList });
-    }
-  }, {
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.onCurrentStoreDroneListChange();
-    }
-  }, {
     key: 'render',
     value: function render() {
-      console.log('article: ', this.props);
-
       return _react2.default.createElement(
         _Paper2.default,
         { style: _ResultStyle2.default.paperStyle, zDepth: 2 },
@@ -54499,14 +54417,8 @@ var ResultPanel = function (_React$Component) {
               _Table.TableBody,
               { displayRowCheckbox: false },
               this.props.droneArray.map(function (item, index) {
-                return;
-
-                // <li className="list-group-item" key={el.id}>
-                //   {el.name}
-                // </li>
-
-
-                _react2.default.createElement(
+                console.log('item: ', item, ' index: ', index);
+                return _react2.default.createElement(
                   _Table.TableRow,
                   { key: index },
                   _react2.default.createElement(
@@ -54545,16 +54457,6 @@ var ResultPanel = function (_React$Component) {
           )
         )
       );
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _StoreDroneList2.default.addChangeListener(this.onCurrentStoreDroneListChange);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      _StoreDroneList2.default.removeChangeListener(this.onCurrentStoreDroneListChange);
     }
   }]);
 
@@ -56635,91 +56537,7 @@ TableRow.propTypes = Object({"CLIENT":true}).NODE_ENV !== "production" ? {
 exports.default = TableRow;
 
 /***/ }),
-/* 577 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _AppDispatcher = __webpack_require__(65);
-
-var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
-
-var _events = __webpack_require__(86);
-
-var _events2 = _interopRequireDefault(_events);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CHANGE_EVENT = 'change';
-
-var StoreDroneList = function (_EventEmitter) {
-  _inherits(StoreDroneList, _EventEmitter);
-
-  function StoreDroneList() {
-    _classCallCheck(this, StoreDroneList);
-
-    var _this = _possibleConstructorReturn(this, (StoreDroneList.__proto__ || Object.getPrototypeOf(StoreDroneList)).call(this));
-
-    _this.droneArray = [];
-    _this.dispatchToken = _AppDispatcher2.default.register(_this.handleAction.bind(_this));
-    return _this;
-  }
-
-  _createClass(StoreDroneList, [{
-    key: 'addChangeListener',
-    value: function addChangeListener(callback) {
-      this.on(CHANGE_EVENT, callback);
-    }
-  }, {
-    key: 'removeChangeListener',
-    value: function removeChangeListener(callback) {
-      this.removeListener(CHANGE_EVENT, callback);
-    }
-  }, {
-    key: 'getDroneArray',
-    value: function getDroneArray() {
-      return this.droneArray;
-    }
-  }, {
-    key: 'setDroneArray',
-    value: function setDroneArray(parameter) {
-      console.log('parameter: ', parameter);
-      this.droneArray = parameter;
-    }
-  }, {
-    key: 'handleAction',
-    value: function handleAction(Action) {
-      if (Action.type === 'update_drone_array') {
-        this.setDroneArray(Action.parameter);
-        this.emitChange();
-      }
-    }
-  }, {
-    key: 'emitChange',
-    value: function emitChange() {
-      this.emit(CHANGE_EVENT);
-    }
-  }]);
-
-  return StoreDroneList;
-}(_events2.default);
-
-exports.default = new StoreDroneList();
-
-/***/ }),
+/* 577 */,
 /* 578 */
 /***/ (function(module, exports, __webpack_require__) {
 
