@@ -1,11 +1,15 @@
 // @flow
 import {combineReducers} from 'redux'
-import {FETCH_DRONES, SHOW_ERROR, CLOSE_SNACKBAR} from "../constants/action-types";
+import {FETCH_DRONES, CHANGE_SNACKBAR} from "../constants/action-types";
 
 const initialState = {
   droneArray: [],
-  errorMessage: '',
-  snackBarOpenState: false
+  errorMessage: {
+    message: ''
+  },
+  snackBarOpenState: {
+    openState: false
+  }
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -13,20 +17,18 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_DRONES:
       return {
         ...state,
-        droneArray: [action.payload]
+        droneArray: [...action.payload]
       };
       break;
-    case SHOW_ERROR:
+    case CHANGE_SNACKBAR:
       return {
         ...state,
-        errorMessage: action.payload,
-        snackBarOpenState: true
-      };
-      break;
-    case CLOSE_SNACKBAR:
-      return {
-        ...state,
-        snackBarOpenState: false
+        errorMessage: {
+          ...action.payload.errorMessage
+        },
+        snackBarOpenState: {
+          ...action.payload.snackBarOpenState
+        }
       };
       break;
     default:

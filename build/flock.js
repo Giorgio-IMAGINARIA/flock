@@ -9640,8 +9640,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var FETCH_DRONES = exports.FETCH_DRONES = "FETCH_DRONES";
-var SHOW_ERROR = exports.SHOW_ERROR = "SHOW_ERROR";
-var CLOSE_SNACKBAR = exports.CLOSE_SNACKBAR = "CLOSE_SNACKBAR";
+var CHANGE_SNACKBAR = exports.CHANGE_SNACKBAR = "CHANGE_SNACKBAR";
 
 /***/ }),
 /* 105 */
@@ -32481,10 +32480,16 @@ var _redux = __webpack_require__(102);
 
 var _actionTypes = __webpack_require__(104);
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var initialState = {
   droneArray: [],
-  errorMessage: '',
-  snackBarOpenState: false
+  errorMessage: {
+    message: ''
+  },
+  snackBarOpenState: {
+    openState: false
+  }
 };
 
 var rootReducer = function rootReducer() {
@@ -32494,18 +32499,13 @@ var rootReducer = function rootReducer() {
   switch (action.type) {
     case _actionTypes.FETCH_DRONES:
       return _extends({}, state, {
-        droneArray: [action.payload]
+        droneArray: [].concat(_toConsumableArray(action.payload))
       });
       break;
-    case _actionTypes.SHOW_ERROR:
+    case _actionTypes.CHANGE_SNACKBAR:
       return _extends({}, state, {
-        errorMessage: action.payload,
-        snackBarOpenState: true
-      });
-      break;
-    case _actionTypes.CLOSE_SNACKBAR:
-      return _extends({}, state, {
-        snackBarOpenState: false
+        errorMessage: _extends({}, action.payload.errorMessage),
+        snackBarOpenState: _extends({}, action.payload.snackBarOpenState)
       });
       break;
     default:
@@ -32936,7 +32936,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(74);
 
-var _closeSnackbar2 = __webpack_require__(345);
+var _changeSnackbar2 = __webpack_require__(513);
 
 var _getMuiTheme = __webpack_require__(165);
 
@@ -32992,8 +32992,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    closeSnackbar: function closeSnackbar() {
-      return dispatch((0, _closeSnackbar2.closeSnackbar)());
+    changeSnackbar: function changeSnackbar(snackBarState) {
+      return dispatch((0, _changeSnackbar2.changeSnackbar)(snackBarState));
     }
   };
 };
@@ -33013,7 +33013,14 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: "handleRequestClose",
     value: function handleRequestClose() {
-      this.props.closeSnackbar();
+      this.props.changeSnackbar({
+        snackBarOpenState: {
+          openState: false
+        },
+        errorMessage: {
+          message: ''
+        }
+      });
     }
   }, {
     key: "render",
@@ -33031,7 +33038,7 @@ var App = function (_React$Component) {
             _react2.default.createElement("div", { style: _AppRootStyle2.default.topSpaceStyle }),
             _react2.default.createElement(_QueryPanel2.default, null),
             _react2.default.createElement(_ResultPanel2.default, null),
-            _react2.default.createElement(_Snackbar2.default, { bodyStyle: _AppRootStyle2.default.snackBarStyle, open: this.props.snackBarOpenState, message: this.props.errorMessage, autoHideDuration: 4000, onRequestClose: this.handleRequestClose })
+            _react2.default.createElement(_Snackbar2.default, { bodyStyle: _AppRootStyle2.default.snackBarStyle, open: this.props.snackBarOpenState.openState, message: this.props.errorMessage.message, autoHideDuration: 1000, onRequestClose: this.handleRequestClose })
           )
         )
       );
@@ -33046,24 +33053,7 @@ var AppToExport = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 exports.default = AppToExport;
 
 /***/ }),
-/* 345 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.closeSnackbar = undefined;
-
-var _actionTypes = __webpack_require__(104);
-
-var closeSnackbar = exports.closeSnackbar = function closeSnackbar() {
-  return { type: _actionTypes.CLOSE_SNACKBAR };
-};
-
-/***/ }),
+/* 345 */,
 /* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47525,7 +47515,7 @@ var QueryPanel = function (_React$Component) {
 
     _this.handleChangeIDText = _this.handleChangeIDText.bind(_this);
     _this.IDRadioGroupChange = _this.IDRadioGroupChange.bind(_this);
-    _this.fetchDrones = _this.fetchDrones.bind(_this);
+    _this.fetchDronesFromAPI = _this.fetchDronesFromAPI.bind(_this);
 
     _this.state = {
       IDInputDisabledState: true,
@@ -47552,8 +47542,8 @@ var QueryPanel = function (_React$Component) {
       if (this.isNumeric(value) || value === '') this.setState({ IDTextFieldValueState: value });
     }
   }, {
-    key: "fetchDrones",
-    value: function fetchDrones() {
+    key: "fetchDronesFromAPI",
+    value: function fetchDronesFromAPI() {
       var objectToSend = {
         droneID: this.state.IDTextFieldValueState ? parseInt(this.state.IDTextFieldValueState) : '*'
       };
@@ -47622,7 +47612,7 @@ var QueryPanel = function (_React$Component) {
               null,
               _react2.default.createElement(
                 _FloatingActionButton2.default,
-                { backgroundColor: "#F4511E", mini: true, onMouseDown: this.fetchDrones },
+                { backgroundColor: "#F4511E", mini: true, onMouseDown: this.fetchDronesFromAPI },
                 _react2.default.createElement(_chevronRight2.default, null)
               )
             )
@@ -47657,29 +47647,40 @@ var _SetClientEnvironment = __webpack_require__(202);
 
 __webpack_require__(83);
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 // LIBRARY
+
+// Other libraries
+
+
 function fetchDronesFromAPI(objectToSubmit) {
-
   var route = objectToSubmit.droneID === '*' ? 'api/v0/drones' : '/api/v0/drone/' + objectToSubmit.droneID;
-
   var address = '' + (0, _SetClientEnvironment.getApiAddress)() + route;
-
   return function (dispatch) {
     return fetch(address, { method: 'GET' }).then(function (response) {
       if (!response.ok) {
         var message = 'Error - ' + response.status + ' - ' + response.statusText;
-        dispatch(dispatchErrorMessage(message));
+        dispatch(dispatchErrorMessage({
+          errorMessage: {
+            message: message
+          },
+          snackBarOpenState: {
+            openState: true
+          }
+        }));
       };
       return response;
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
-      return dispatch(dispatchDrones(json));
+      var arrayToDispatch = [];
+      objectToSubmit.droneID === '*' ? arrayToDispatch = [].concat(_toConsumableArray(json)) : arrayToDispatch.push(json);
+      dispatch(dispatchDrones(arrayToDispatch));
+    }).catch(function (error) {
+      console.log(error);
     });
   };
-}
-// Other libraries
-;
+};
 
 var fetchDrones = exports.fetchDrones = function fetchDrones(droneQueryObjecyPassed) {
   return function (dispatch, getState) {
@@ -47691,8 +47692,8 @@ function dispatchDrones(json) {
   return { type: _actionTypes.FETCH_DRONES, payload: json };
 };
 
-function dispatchErrorMessage(message) {
-  return { type: _actionTypes.SHOW_ERROR, payload: message };
+function dispatchErrorMessage(messageObject) {
+  return { type: _actionTypes.CHANGE_SNACKBAR, payload: messageObject };
 };
 
 /***/ }),
@@ -49959,7 +49960,7 @@ var ResultPanel = function (_React$Component) {
               this.props.droneArray.map(function (item, index) {
                 return _react2.default.createElement(
                   _Table.TableRow,
-                  { key: item.droneId },
+                  { key: index },
                   _react2.default.createElement(
                     _Table.TableRowColumn,
                     null,
@@ -52454,6 +52455,24 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
+
+/***/ }),
+/* 513 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.changeSnackbar = undefined;
+
+var _actionTypes = __webpack_require__(104);
+
+var changeSnackbar = exports.changeSnackbar = function changeSnackbar(snackBarStateObject) {
+  return { type: _actionTypes.CHANGE_SNACKBAR, payload: snackBarStateObject };
+};
 
 /***/ })
 /******/ ]);

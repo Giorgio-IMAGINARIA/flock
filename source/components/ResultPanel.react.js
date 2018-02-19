@@ -60,7 +60,7 @@ class ResultPanel extends React.Component {
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             {
-              this.props.droneArray.map((item, index) => <TableRow key={item.droneId}>
+              this.props.droneArray.map((item, index) => <TableRow key={index}>
                   <TableRowColumn>{item.droneId}</TableRowColumn>
                   <TableRowColumn>{item.name}</TableRowColumn>
                   <TableRowColumn>{item.numCrashes}</TableRowColumn>

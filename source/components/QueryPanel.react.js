@@ -33,7 +33,7 @@ class QueryPanel extends React.Component {
 
     this.handleChangeIDText = this.handleChangeIDText.bind(this);
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
-    this.fetchDrones = this.fetchDrones.bind(this);
+    this.fetchDronesFromAPI = this.fetchDronesFromAPI.bind(this);
 
     this.state = {
       IDInputDisabledState: true,
@@ -57,7 +57,7 @@ class QueryPanel extends React.Component {
       this.setState({IDTextFieldValueState: value});
     }
 
-  fetchDrones() {
+  fetchDronesFromAPI() {
     let objectToSend: DroneQueryObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
@@ -97,7 +97,7 @@ class QueryPanel extends React.Component {
         </div>
         <div style={QueryStyle.submitRowStyle}>
           <div>
-            <FloatingActionButton backgroundColor={"#F4511E"} mini={true} onMouseDown={this.fetchDrones}>
+            <FloatingActionButton backgroundColor={"#F4511E"} mini={true} onMouseDown={this.fetchDronesFromAPI}>
               <RightArrow/>
             </FloatingActionButton>
           </div>

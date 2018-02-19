@@ -1,4 +1,4 @@
-import {FETCH_DRONES, SHOW_ERROR} from "../constants/action-types";
+import {FETCH_DRONES, CHANGE_SNACKBAR} from "../constants/action-types";
 // LIBRARY
 import {getApiAddress} from '../library/SetClientEnvironment';
 // Other libraries
@@ -9,23 +9,34 @@ interface DroneQueryObject {
 }
 
 function fetchDronesFromAPI(objectToSubmit : DroneQueryObject) {
-
   let route: string = objectToSubmit.droneID === '*'
     ? `api/v0/drones`
     : `/api/v0/drone/${objectToSubmit.droneID}`;
-
   let address = `${getApiAddress()}${route}`;
-
   return dispatch => {
     return fetch(address, {method: 'GET'}).then(response => {
       if (!response.ok) {
         let message: string = `Error - ${response.status} - ${response.statusText}`;
-        dispatch(dispatchErrorMessage(message))
+        dispatch(dispatchErrorMessage({
+          errorMessage: {
+            message: message
+          },
+          snackBarOpenState: {
+            openState: true
+          }
+        }))
       };
       return response;
-    }).then(response => response.json()).then(json => dispatch(dispatchDrones(json)))
+    }).then(response => response.json()).then(json => {
+      let arrayToDispatch = [];
+      objectToSubmit.droneID === '*'
+        ? arrayToDispatch = [...json]
+        : arrayToDispatch.push(json);
+      dispatch(dispatchDrones(arrayToDispatch))
+    }).catch((error) => {
+      console.log(error);
+    });
   };
-  
 };
 
 export const fetchDrones = (droneQueryObjecyPassed : DroneQueryObject) => {
@@ -38,6 +49,6 @@ function dispatchDrones(json) {
   return {type: FETCH_DRONES, payload: json};
 };
 
-function dispatchErrorMessage(message) {
-  return {type: SHOW_ERROR, payload: message};
+function dispatchErrorMessage(messageObject) {
+  return {type: CHANGE_SNACKBAR, payload: messageObject};
 };

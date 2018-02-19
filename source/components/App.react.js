@@ -4,7 +4,7 @@ import React from 'react';
 // REACT-REDUX
 import {connect} from "react-redux";
 // REDUX ACTIONS
-import {closeSnackbar} from "../actions/closeSnackbar";
+import {changeSnackbar} from "../actions/changeSnackbar";
 //Material UI Modules
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -22,7 +22,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    closeSnackbar: () => dispatch(closeSnackbar())
+    changeSnackbar: (snackBarState) => dispatch(changeSnackbar(snackBarState))
   };
 };
 
@@ -33,7 +33,14 @@ class App extends React.Component {
   }
 
   handleRequestClose() {
-    this.props.closeSnackbar();
+    this.props.changeSnackbar({
+      snackBarOpenState: {
+        openState: false
+      },
+      errorMessage: {
+        message: ''
+      }
+    });
   }
 
   render() {
@@ -44,7 +51,7 @@ class App extends React.Component {
           <div style={AppRootStyle.topSpaceStyle}/>
           <QueryPanel/>
           <ResultPanel/>
-          <Snackbar bodyStyle={AppRootStyle.snackBarStyle} open={this.props.snackBarOpenState} message={this.props.errorMessage} autoHideDuration={4000} onRequestClose={this.handleRequestClose}/>
+          <Snackbar bodyStyle={AppRootStyle.snackBarStyle} open={this.props.snackBarOpenState.openState} message={this.props.errorMessage.message} autoHideDuration={1000} onRequestClose={this.handleRequestClose}/>
         </div>
       </div>
     </MuiThemeProvider>);
