@@ -9,8 +9,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './components/App.react';
 // Libraries
 import SetClientEnvironment from './library/SetClientEnvironment';
-import events from "events";
-events.EventEmitter.defaultMaxListeners = 100;
 
 injectTapEventPlugin();
 
