@@ -35,24 +35,24 @@ Going on developing the app without thinking at these initial compromises and ad
 
 # GENERAL EXPLANATION
 
-The application has a back-end written in Node.js and it uses Express.js as framework. The front-end is instead written in ES6, using React + Flux as framework, Flow as type-checking language, Radium as Javascript-CSS helper, Material-UI as UI library and transpiled with Webpack.
+The application has a back-end written in Node.js and it uses Express.js as framework. The front-end is instead written in ES6, using React + Redux as framework, Flow as type-checking language, Material-UI as UI library and transpiled with Webpack.
 
-The relevant part of the backend is the apiAddress route that contains the path to use for the REST request to the Flock API. Having the address stored in that location makes changing the route easier for future updates. The address is retrieved at the apiAddress route when the app is started and it is stored in the StoreAddress to be used for the API requests.
+The relevant part of the backend is the apiAddress route that contains the path to use for the REST request to the Flock API. Having the address stored in that location makes changing the route easier for future updates. The address is retrieved at the apiAddress route when the app is started and it is stored in SetClientEnvironment.js to be used for the API requests.
 
 The application is made of different components, the main ones are the QueryPanel and the ResultPanel.
 
 The former contains the filters to apply to the GET request to the API, whereas the latter visualises the results as a dynamic table of drone details.
 
-The request is done in the ActionCreatorSendToAPI by means of the AJAX library Fetch.
-once done, the actionCreator dispatches an action that is listened by the StoreDroneList Store.
+The request is done in the fetchDrones action by means of the AJAX library Fetch.
+once done, the new state is dispatched to the reducer.
 
-The store updates its status which is listened by the ResultPanel module. The module gets the next state of the Store and visualises the retrieved information as a table of contents.
+The state is listened by the ResultPanel module. The module gets the props through "connect" and visualises the retrieved information as a table of contents.
 
-If, anyway, the API reject the request and throws an error, that error is caught and dispatched to be listened by the StoreError. The changes in that store are then listened in the App module that visualises the issue through a SnackBar module.
+If, anyway, the API reject the request and throws an error, that error is caught and dispatched again to the reducer. The App module visualises the issue through a SnackBar module.
 
 The SnackBar used to show errors and the table aggregating drone details are provided by the Material UI library.
 
-Focusing on the QueryPanel and then on the filters, it can be seen that the object to send to the ActionCreator and then used for the request to the API has the following interface:
+Focusing on the QueryPanel and then on the filters, it can be seen that the object to send to the fetchDrones action and then used for the request to the API has the following interface:
 
 interface DroneObject {
   droneID: any
@@ -83,41 +83,37 @@ let titles = {
   textIndent: '25px'
 }
 
-It can be seen also the use of the keywords let as variable declaration, the .foreach() method and the arrow functions:
+It can be seen also the use of the keywords let as variable declaration, the .map() method and the arrow functions:
 
-nextArray.forEach((item, index) => {
-  let elementToCreate: any =<TableRow key={index}>
+this.props.droneArray.map((item, index) => <TableRow key={index}>
     <TableRowColumn>{item.droneId}</TableRowColumn>
     <TableRowColumn>{item.name}</TableRowColumn>
     <TableRowColumn>{item.numCrashes}</TableRowColumn>
     <TableRowColumn>{item.numFlights}</TableRowColumn>
     <TableRowColumn>{item.price}</TableRowColumn>
     <TableRowColumn>{item.currency}</TableRowColumn>
-  </TableRow>;
-  droneList.push(elementToCreate);
-});
+  </TableRow>)
 
 In the code above it can be seen that the table is created dynamically as an array of nodes by giving a unique key to each of them.
 
 In a different part of the code can also be seen the use of template literals:
 
-let address = `${StoreAddress.getAddressRoot()}${route}`;
+let address = `${getApiAddress()}${route}`;
 
 As for React, the way the elements are dynamically rendered on the screen requires the use of states:
 
 this.state = {
-  droneArray: []
+  IDInputDisabledState: true,
+  IDTextFieldValueState: ''
 };
 
 That are set by the class logic:
 
-this.setState({droneArray: droneList});
+this.setState({IDTextFieldValueState: value});
 
 and then rendered:
 
-<TableBody displayRowCheckbox={false}>
- {this.state.droneArray}
-</TableBody>
+value={this.state.IDTextFieldValueState}
 
 The app is ready to be deployed to the Google Cloud Platform after the inclusion of the app.yaml file (the app modules are built in Yarn which guarantees consistency for new installations).
 
