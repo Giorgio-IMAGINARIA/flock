@@ -18,6 +18,7 @@ import {
   TableRow,
   TableRowColumn
 } from 'material-ui/Table';
+
 // Style Modules
 import GeneralStyle from '../styles/GeneralStyle';
 import ResultStyle from '../styles/ResultStyle';

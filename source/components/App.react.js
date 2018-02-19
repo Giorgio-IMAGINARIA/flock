@@ -1,6 +1,11 @@
 // @flow
 //React
 import React from 'react';
+// REACT-REDUX
+import {connect} from "react-redux";
+// REDUX ACTIONS
+import {closeSnackbar} from "../actions/closeSnackbar";
+// RADIUM
 import {StyleRoot} from 'radium';
 //Material UI Modules
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -10,29 +15,27 @@ import Snackbar from 'material-ui/Snackbar';
 import MainBarUI from '../components/MainBarUI.react';
 import QueryPanel from './QueryPanel.react';
 import ResultPanel from './ResultPanel.react';
-//Stores
-import StoreError from '../stores/StoreError';
 // Style Modules
 import AppRootStyle from '../styles/AppRootStyle';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onCurrentStoreErrorChange = this.onCurrentStoreErrorChange.bind(this);
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.state = {
-      open: false,
-      message: ''
-    };
-  }
+const mapStateToProps = state => {
+  return {errorMessage: state.errorMessage, snackBarOpenState: state.snackBarOpenState};
+};
 
-  onCurrentStoreErrorChange() {
-    let errormessage: string = StoreError.getErrorMessage();
-    this.setState({open: true, message: errormessage});
+const mapDispatchToProps = dispatch => {
+  return {
+    closeSnackbar: () => dispatch(closeSnackbar())
+  };
+};
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.handleRequestClose = this.handleRequestClose.bind(this);
   }
 
   handleRequestClose() {
-    this.setState({open: false, message: ''});
+    this.props.closeSnackbar();
   }
 
   render() {
@@ -43,17 +46,13 @@ class App extends React.Component {
           <div style={AppRootStyle.topSpaceStyle}/>
           <QueryPanel/>
           <ResultPanel/>
-          <Snackbar bodyStyle={AppRootStyle.snackBarStyle} open={this.state.open} message={this.state.message} autoHideDuration={4000} onRequestClose={this.handleRequestClose}/>
+          <Snackbar bodyStyle={AppRootStyle.snackBarStyle} open={this.props.snackBarOpenState} message={this.props.errorMessage} autoHideDuration={4000} onRequestClose={this.handleRequestClose}/>
         </div>
       </MuiThemeProvider>
     </StyleRoot>);
   }
-  componentDidMount() {
-    StoreError.addChangeListener(this.onCurrentStoreErrorChange);
-  }
-
-  componentWillUnmount() {
-    StoreError.removeChangeListener(this.onCurrentStoreErrorChange);
-  }
 }
-export default App;
+
+const AppToExport = connect(mapStateToProps, mapDispatchToProps)(App);
+
+export default AppToExport;

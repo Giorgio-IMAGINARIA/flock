@@ -3,8 +3,6 @@
 import React from 'react';
 // REACT-REDUX
 import {connect} from "react-redux";
-// REDUX STORE
-import ReduxStore from '../store/index';
 // REDUX ACTIONS
 import {addArticle} from "../actions/addArticle";
 import {fetchDrones} from "../actions/fetchDrones";
@@ -18,8 +16,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-//Action Creators
-import ActionCreatorSendToAPI from '../actions/ActionCreatorSendToAPI';
 //Material UI
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -41,20 +37,14 @@ class QueryPanel extends React.Component {
 
     this.handleChangeIDText = this.handleChangeIDText.bind(this);
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
-    this.validateDetails = this.validateDetails.bind(this);
     this.deleteArticle = this.deleteArticle.bind(this);
     this.fetchDrones = this.fetchDrones.bind(this);
-    this.onCurrentReduxStoreChange = this.onCurrentReduxStoreChange.bind(this);
 
     this.state = {
       IDInputDisabledState: true,
       IDTextFieldValueState: ''
     };
 
-  }
-
-  onCurrentReduxStoreChange() {
-    console.log('Redux store state: ', ReduxStore.getState());
   }
 
   IDRadioGroupChange(evt : any, value : string): void {
@@ -71,15 +61,6 @@ class QueryPanel extends React.Component {
     if (this.isNumeric(value) || value === '')
       this.setState({IDTextFieldValueState: value});
     }
-
-  validateDetails() {
-    let objectToSend: DroneQueryObject = {
-      droneID: this.state.IDTextFieldValueState
-        ? parseInt(this.state.IDTextFieldValueState)
-        : '*'
-    };
-    ActionCreatorSendToAPI(objectToSend);
-  }
 
   addArticle() {
     this.props.addArticle({name: 'React Redux Tutorial for Beginners', id: 1});
@@ -134,10 +115,6 @@ class QueryPanel extends React.Component {
 
         <div style={QueryStyle.submitRowStyle}>
           <div>
-            <FloatingActionButton mini={true} secondary={true} onMouseDown={this.validateDetails}>
-              <RightArrow/>
-            </FloatingActionButton>
-
             <FloatingActionButton backgroundColor={"#43A047"} mini={true} onMouseDown={this.addArticle}>
               <RightArrow/>
             </FloatingActionButton>
@@ -149,18 +126,9 @@ class QueryPanel extends React.Component {
             </FloatingActionButton>
           </div>
         </div>
-
       </div>
 
     </Paper>);
-  }
-
-  componentDidMount() {
-    ReduxStore.subscribe(this.onCurrentReduxStoreChange);
-  }
-
-  componentWillUnmount() {
-    ReduxStore.unsubscribe(this.onCurrentReduxStoreChange);
   }
 }
 

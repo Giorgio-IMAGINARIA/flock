@@ -1,19 +1,12 @@
 // @flow
 import {combineReducers} from 'redux'
-import {ADD_ARTICLE, DELETE_ALL_ARTICLES, FETCH_DRONES} from "../constants/action-types";
-// INTERFACES
-interface DroneObject {
-  currency: string,
-  droneId: number,
-  name: string,
-  numCrashes: number,
-  numFlights: number,
-  price: number
-}
+import {ADD_ARTICLE, DELETE_ALL_ARTICLES, FETCH_DRONES, SHOW_ERROR, CLOSE_SNACKBAR} from "../constants/action-types";
 
 const initialState = {
   articles: [],
-  droneArray: []
+  droneArray: [],
+  errorMessage: '',
+  snackBarOpenState: false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -21,9 +14,20 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_DRONES:
       return {
         ...state,
-        droneArray: [
-          action.payload
-        ]
+        droneArray: [action.payload]
+      };
+      break;
+    case SHOW_ERROR:
+      return {
+        ...state,
+        errorMessage: action.payload,
+        snackBarOpenState: true
+      };
+      break;
+    case CLOSE_SNACKBAR:
+      return {
+        ...state,
+        snackBarOpenState: false
       };
       break;
     case ADD_ARTICLE:
