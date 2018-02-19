@@ -30,6 +30,13 @@ class ResultPanel extends React.Component {
   }
 
   render() {
+
+
+
+    console.log('this.props.droneArray: ', this.props.droneArray);
+
+
+
     return (<Paper style={ResultStyle.paperStyle} zDepth={2}>
       <div style={GeneralStyle.headerStyle}>
         <h1 style={GeneralStyle.mainTitle}>
@@ -53,17 +60,14 @@ class ResultPanel extends React.Component {
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             {
-              this.props.droneArray.map((item, index) => {
-                console.log('item: ', item, ' index: ', index);
-                return <TableRow key={index}>
+              this.props.droneArray.map((item, index) => <TableRow key={item.droneId}>
                   <TableRowColumn>{item.droneId}</TableRowColumn>
                   <TableRowColumn>{item.name}</TableRowColumn>
                   <TableRowColumn>{item.numCrashes}</TableRowColumn>
                   <TableRowColumn>{item.numFlights}</TableRowColumn>
                   <TableRowColumn>{item.price}</TableRowColumn>
                   <TableRowColumn>{item.currency}</TableRowColumn>
-                </TableRow>;
-              })
+                </TableRow>)
             }
           </TableBody>
         </Table>

@@ -5,8 +5,6 @@ import React from 'react';
 import {connect} from "react-redux";
 // REDUX ACTIONS
 import {closeSnackbar} from "../actions/closeSnackbar";
-// RADIUM
-import {StyleRoot} from 'radium';
 //Material UI Modules
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -39,8 +37,8 @@ class App extends React.Component {
   }
 
   render() {
-    return (<StyleRoot style={AppRootStyle.mainWrap}>
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
+    return (<MuiThemeProvider muiTheme={getMuiTheme()}>
+      <div style={AppRootStyle.mainWrap}>
         <div style={AppRootStyle.appWrap}>
           <MainBarUI/>
           <div style={AppRootStyle.topSpaceStyle}/>
@@ -48,8 +46,8 @@ class App extends React.Component {
           <ResultPanel/>
           <Snackbar bodyStyle={AppRootStyle.snackBarStyle} open={this.props.snackBarOpenState} message={this.props.errorMessage} autoHideDuration={4000} onRequestClose={this.handleRequestClose}/>
         </div>
-      </MuiThemeProvider>
-    </StyleRoot>);
+      </div>
+    </MuiThemeProvider>);
   }
 }
 

@@ -1,6 +1,6 @@
 import {FETCH_DRONES, SHOW_ERROR} from "../constants/action-types";
-// Stores
-import StoreAddress from '../stores/StoreAddress';
+// LIBRARY
+import {getApiAddress} from '../library/SetClientEnvironment';
 // Other libraries
 import 'whatwg-fetch';
 
@@ -14,7 +14,7 @@ function fetchDronesFromAPI(objectToSubmit : DroneQueryObject) {
     ? `api/v0/drones`
     : `/api/v0/drone/${objectToSubmit.droneID}`;
 
-  let address = `${StoreAddress.getAddressRoot()}${route}`;
+  let address = `${getApiAddress()}${route}`;
 
   return dispatch => {
     return fetch(address, {method: 'GET'}).then(response => {
@@ -25,6 +25,7 @@ function fetchDronesFromAPI(objectToSubmit : DroneQueryObject) {
       return response;
     }).then(response => response.json()).then(json => dispatch(dispatchDrones(json)))
   };
+  
 };
 
 export const fetchDrones = (droneQueryObjecyPassed : DroneQueryObject) => {
@@ -34,11 +35,9 @@ export const fetchDrones = (droneQueryObjecyPassed : DroneQueryObject) => {
 };
 
 function dispatchDrones(json) {
-  console.log('the JSON: ', json);
   return {type: FETCH_DRONES, payload: json};
 };
 
 function dispatchErrorMessage(message) {
-  console.log('the message: ', message);
   return {type: SHOW_ERROR, payload: message};
 };

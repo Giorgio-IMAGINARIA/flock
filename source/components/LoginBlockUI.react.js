@@ -20,13 +20,13 @@ class LoginBlockUI extends React.Component {
       open: false
     };
     this.logoutUser = this.logoutUser.bind(this);
-    this.accountNameStyle={
+    this.accountNameStyle = {
       color: '#ffffff'
     }
   }
 
   logoutUser() {
-console.log('logout!!!');
+    console.log('logout!!!');
   }
 
   handleTouchTap = (event) => {
@@ -40,22 +40,20 @@ console.log('logout!!!');
   }
 
   render() {
-    return (
-      <div>
-        <FlatButton labelStyle={this.accountNameStyle} onTouchTap={this.handleTouchTap} label={"Giorgio Mazzei"} labelPosition="before" icon= { < Avatar color = { deepOrange300 } backgroundColor = { purple500 } size = { 30 } style = { style } > { "GM" } < /Avatar>}/>
-        <Popover open={this.state.open} anchorEl={this.state.anchorEl} anchorOrigin={{
+    return (<div>
+      <FlatButton labelStyle={this.accountNameStyle} onTouchTap={this.handleTouchTap} label={"Giorgio Mazzei"} labelPosition="before" icon={<Avatar color={deepOrange300} backgroundColor={purple500} size={30} style={style}>{'GM'}</Avatar>}/>
+      <Popover open={this.state.open} anchorEl={this.state.anchorEl} anchorOrigin={{
           horizontal: 'right',
           vertical: 'top'
         }} targetOrigin={{
           horizontal: 'right',
           vertical: 'top'
         }} onRequestClose={this.handleRequestClose}>
-          <Menu>
-            <MenuItem primaryText="Sign out" onTouchTap={this.logoutUser}/>
-          </Menu>
-        </Popover>
-      </div>
-    );
+        <Menu>
+          <MenuItem primaryText="Sign out" onTouchTap={this.logoutUser}/>
+        </Menu>
+      </Popover>
+    </div>);
   }
 }
 

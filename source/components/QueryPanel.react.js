@@ -4,15 +4,11 @@ import React from 'react';
 // REACT-REDUX
 import {connect} from "react-redux";
 // REDUX ACTIONS
-import {addArticle} from "../actions/addArticle";
 import {fetchDrones} from "../actions/fetchDrones";
-import {deleteAllArticles} from "../actions/deleteAllArticles";
 
 const mapDispatchToProps = dispatch => {
   return {
-    addArticle: article => dispatch(addArticle(article)),
-    fetchDrones: article => dispatch(fetchDrones(article)),
-    deleteAllArticles: () => dispatch(deleteAllArticles())
+    fetchDrones: query => dispatch(fetchDrones(query))
   };
 };
 
@@ -37,7 +33,6 @@ class QueryPanel extends React.Component {
 
     this.handleChangeIDText = this.handleChangeIDText.bind(this);
     this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
-    this.deleteArticle = this.deleteArticle.bind(this);
     this.fetchDrones = this.fetchDrones.bind(this);
 
     this.state = {
@@ -62,27 +57,17 @@ class QueryPanel extends React.Component {
       this.setState({IDTextFieldValueState: value});
     }
 
-  addArticle() {
-    this.props.addArticle({name: 'React Redux Tutorial for Beginners', id: 1});
-  }
-
-  deleteArticle() {
-    this.props.deleteAllArticles();
-  }
-
   fetchDrones() {
     let objectToSend: DroneQueryObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
         : '*'
     };
-
     this.props.fetchDrones(objectToSend);
   }
 
   render() {
     return (<Paper style={QueryStyle.paperStyle} zDepth={2}>
-
       <div style={GeneralStyle.headerStyle}>
         <h1 style={GeneralStyle.mainTitle}>
           Query panel
@@ -91,9 +76,7 @@ class QueryPanel extends React.Component {
           Select "All" to get data related to all drones or type the drone id for a specific drone, then submit your query
         </h2>
       </div>
-
       <div style={GeneralStyle.paperContentWrapStyle}>
-
         <div style={QueryStyle.inputBoxStyle}>
           <div style={QueryStyle.inputBoxTitleRowStyle}>
             <h3 style={QueryStyle.internalTitleStyle}>
@@ -112,22 +95,14 @@ class QueryPanel extends React.Component {
             </div>
           </div>
         </div>
-
         <div style={QueryStyle.submitRowStyle}>
           <div>
-            <FloatingActionButton backgroundColor={"#43A047"} mini={true} onMouseDown={this.addArticle}>
-              <RightArrow/>
-            </FloatingActionButton>
-            <FloatingActionButton mini={true} onMouseDown={this.deleteArticle}>
-              <RightArrow/>
-            </FloatingActionButton>
             <FloatingActionButton backgroundColor={"#F4511E"} mini={true} onMouseDown={this.fetchDrones}>
               <RightArrow/>
             </FloatingActionButton>
           </div>
         </div>
       </div>
-
     </Paper>);
   }
 }
