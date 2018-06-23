@@ -47460,7 +47460,7 @@ exports.default = QueryPanelToExport;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchDrones = undefined;
+exports.fetchDronesFromAPI = exports.dispatchErrorMessage = exports.dispatchDrones = exports.fetchDrones = undefined;
 
 var _actionTypes = __webpack_require__(103);
 
@@ -47474,7 +47474,21 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 // Other libraries
 
 
-function fetchDronesFromAPI(objectToSubmit) {
+var fetchDrones = exports.fetchDrones = function fetchDrones(droneQueryObjecyPassed) {
+  return function (dispatch, getState) {
+    return dispatch(fetchDronesFromAPI(droneQueryObjecyPassed));
+  };
+};
+
+var dispatchDrones = exports.dispatchDrones = function dispatchDrones(json) {
+  return { type: _actionTypes.FETCH_DRONES, payload: json };
+};
+
+var dispatchErrorMessage = exports.dispatchErrorMessage = function dispatchErrorMessage(messageObject) {
+  return { type: _actionTypes.CHANGE_SNACKBAR, payload: messageObject };
+};
+
+var fetchDronesFromAPI = exports.fetchDronesFromAPI = function fetchDronesFromAPI(objectToSubmit) {
   var route = objectToSubmit.droneID === '*' ? 'api/v0/drones' : '/api/v0/drone/' + objectToSubmit.droneID;
   var address = '' + (0, _SetClientEnvironment.getApiAddress)() + route;
   return function (dispatch) {
@@ -47501,20 +47515,6 @@ function fetchDronesFromAPI(objectToSubmit) {
       console.log(error);
     });
   };
-};
-
-var fetchDrones = exports.fetchDrones = function fetchDrones(droneQueryObjecyPassed) {
-  return function (dispatch, getState) {
-    return dispatch(fetchDronesFromAPI(droneQueryObjecyPassed));
-  };
-};
-
-function dispatchDrones(json) {
-  return { type: _actionTypes.FETCH_DRONES, payload: json };
-};
-
-function dispatchErrorMessage(messageObject) {
-  return { type: _actionTypes.CHANGE_SNACKBAR, payload: messageObject };
 };
 
 /***/ }),

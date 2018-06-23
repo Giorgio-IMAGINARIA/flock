@@ -1,6 +1,6 @@
-import {FETCH_DRONES, CHANGE_SNACKBAR} from "../constants/action-types";
+import { FETCH_DRONES, CHANGE_SNACKBAR } from "../constants/action-types";
 // LIBRARY
-import {getApiAddress} from '../library/SetClientEnvironment';
+import { getApiAddress } from '../library/SetClientEnvironment';
 // Other libraries
 import 'whatwg-fetch';
 
@@ -8,13 +8,23 @@ interface DroneQueryObject {
   droneID: any
 }
 
-function fetchDronesFromAPI(objectToSubmit : DroneQueryObject) {
+export const fetchDrones = (droneQueryObjecyPassed: DroneQueryObject) => {
+  return (dispatch, getState) => {
+    return dispatch(fetchDronesFromAPI(droneQueryObjecyPassed))
+  };
+};
+
+export const dispatchDrones = (json) => ({ type: FETCH_DRONES, payload: json });
+
+export const dispatchErrorMessage = (messageObject) => ({ type: CHANGE_SNACKBAR, payload: messageObject });
+
+export const fetchDronesFromAPI = (objectToSubmit: DroneQueryObject) => {
   let route: string = objectToSubmit.droneID === '*'
     ? `api/v0/drones`
     : `/api/v0/drone/${objectToSubmit.droneID}`;
   let address = `${getApiAddress()}${route}`;
   return dispatch => {
-    return fetch(address, {method: 'GET'}).then(response => {
+    return fetch(address, { method: 'GET' }).then(response => {
       if (!response.ok) {
         let message: string = `Error - ${response.status} - ${response.statusText}`;
         dispatch(dispatchErrorMessage({
@@ -37,18 +47,4 @@ function fetchDronesFromAPI(objectToSubmit : DroneQueryObject) {
       console.log(error);
     });
   };
-};
-
-export const fetchDrones = (droneQueryObjecyPassed : DroneQueryObject) => {
-  return(dispatch, getState) => {
-    return dispatch(fetchDronesFromAPI(droneQueryObjecyPassed))
-  };
-};
-
-function dispatchDrones(json) {
-  return {type: FETCH_DRONES, payload: json};
-};
-
-function dispatchErrorMessage(messageObject) {
-  return {type: CHANGE_SNACKBAR, payload: messageObject};
 };
