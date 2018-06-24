@@ -1,12 +1,22 @@
+//@flow
 import { FETCH_DRONES, CHANGE_SNACKBAR } from "../constants/action-types";
 // LIBRARY
 import { getApiAddress } from '../library/SetClientEnvironment';
 // Other libraries
 import 'whatwg-fetch';
 
-interface DroneQueryObject {
-  droneID: any
-}
+type DroneQueryObject = {
+  droneID: string | number
+};
+
+type DroneObtainedObject = {
+  currency: string,
+  droneId: number,
+  name: string,
+  numCrashes: number,
+  numFlights: number,
+  price: number
+};
 
 export const fetchDrones = (droneQueryObjecyPassed: DroneQueryObject) => {
   return (dispatch, getState) => {
@@ -14,7 +24,7 @@ export const fetchDrones = (droneQueryObjecyPassed: DroneQueryObject) => {
   };
 };
 
-export const dispatchDrones = (json) => ({ type: FETCH_DRONES, payload: json });
+export const dispatchDrones = (json: Array<DroneObtainedObject>) => ({ type: FETCH_DRONES, payload: json });
 
 export const dispatchErrorMessage = (messageObject) => ({ type: CHANGE_SNACKBAR, payload: messageObject });
 

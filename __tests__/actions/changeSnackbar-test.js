@@ -1,5 +1,5 @@
 // @flow
-interface snackBarStateObjectInterface {
+type snackBarStateObjectInterface = {
     errorMessage: { message: string },
     snackBarOpenState: { openState: boolean }
 }
@@ -11,7 +11,7 @@ const dummySnackBarStateObject: snackBarStateObjectInterface = {
     snackBarOpenState: { openState: true }
 }
 
-describe('changeSnackbar action', () => {
+describe('changeSnackbar action - changeSnackbar()', () => {
     it('should create an action to set the snackbar state', () => {
         const expectedAction = {
             type: CHANGE_SNACKBAR, payload: dummySnackBarStateObject

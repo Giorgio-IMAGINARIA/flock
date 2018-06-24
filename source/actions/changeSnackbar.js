@@ -1,5 +1,5 @@
 // @flow
-interface snackBarStateObjectInterface {
+type snackBarStateObjectInterface =  {
     errorMessage: { message: string },
     snackBarOpenState: { openState: boolean }
 }
