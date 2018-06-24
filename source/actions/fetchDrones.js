@@ -18,43 +18,60 @@ type DroneObtainedObject = {
   price: number
 };
 
-export const fetchDrones = (droneQueryObjecyPassed: DroneQueryObject) => {
-  return (dispatch, getState) => {
-    return dispatch(fetchDronesFromAPI(droneQueryObjecyPassed))
-  };
+type snackBarStateObjectInterface = {
+  errorMessage: { message: string },
+  snackBarOpenState: { openState: boolean }
 };
 
-export const dispatchDrones = (json: Array<DroneObtainedObject>) => ({ type: FETCH_DRONES, payload: json });
+type errorMessageActionObject = {
+  type: CHANGE_SNACKBAR,
+  payload: snackBarStateObjectInterface
+};
 
-export const dispatchErrorMessage = (messageObject) => ({ type: CHANGE_SNACKBAR, payload: messageObject });
+type finalDroneActionObject = {
+  type: FETCH_DRONES,
+  payload: Array<DroneObtainedObject>
+};
+
+export const fetchDrones = (droneQueryObjecyPassed: DroneQueryObject) => {
+  return (dispatch: ((DroneQueryObject) => Promise<any>) => void): void => dispatch(fetchDronesFromAPI(droneQueryObjecyPassed));
+};
+
+export const dispatchDrones = (json: Array<DroneObtainedObject>): finalDroneActionObject => ({ type: FETCH_DRONES, payload: json });
+
+export const dispatchErrorMessage = (messageObject: snackBarStateObjectInterface): errorMessageActionObject => ({ type: CHANGE_SNACKBAR, payload: messageObject });
 
 export const fetchDronesFromAPI = (objectToSubmit: DroneQueryObject) => {
   let route: string = objectToSubmit.droneID === '*'
     ? `api/v0/drones`
     : `/api/v0/drone/${objectToSubmit.droneID}`;
   let address = `${getApiAddress()}${route}`;
-  return dispatch => {
-    return fetch(address, { method: 'GET' }).then(response => {
-      if (!response.ok) {
-        let message: string = `Error - ${response.status} - ${response.statusText}`;
-        dispatch(dispatchErrorMessage({
-          errorMessage: {
-            message: message
-          },
-          snackBarOpenState: {
-            openState: true
-          }
-        }))
-      };
-      return response;
-    }).then(response => response.json()).then(json => {
-      let arrayToDispatch = [];
-      objectToSubmit.droneID === '*'
-        ? arrayToDispatch = [...json]
-        : arrayToDispatch.push(json);
-      dispatch(dispatchDrones(arrayToDispatch))
-    }).catch((error) => {
-      console.log(error);
-    });
+  return (dispatch: any): any => {
+    return fetch(address, { method: 'GET' })
+      .then(response => {
+        if (!response.ok) {
+          let message: string = `Error - ${response.status} - ${response.statusText}`;
+          dispatch(dispatchErrorMessage({
+            errorMessage: {
+              message: message
+            },
+            snackBarOpenState: {
+              openState: true
+            }
+          }))
+        };
+        return response;
+      })
+      .then(response => response.json())
+      .then(json => {
+        let arrayToDispatch = [];
+        objectToSubmit.droneID === '*'
+          ? arrayToDispatch = [...json]
+          : arrayToDispatch.push(json);
+        dispatch(dispatchDrones(arrayToDispatch))
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 };

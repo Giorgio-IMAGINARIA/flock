@@ -13,7 +13,7 @@ type DroneObtainedObject = {
 };
 
 import { FETCH_DRONES, CHANGE_SNACKBAR } from "../../source/constants/action-types";
-import { dispatchDrones, dispatchErrorMessage } from "../../source/actions/fetchDrones"
+import { dispatchDrones, dispatchErrorMessage, fetchDrones } from "../../source/actions/fetchDrones"
 
 
 const dummyDroneObtainedArray: Array<DroneObtainedObject> = [{

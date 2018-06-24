@@ -47475,7 +47475,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 
 var fetchDrones = exports.fetchDrones = function fetchDrones(droneQueryObjecyPassed) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     return dispatch(fetchDronesFromAPI(droneQueryObjecyPassed));
   };
 };
@@ -47494,10 +47494,10 @@ var fetchDronesFromAPI = exports.fetchDronesFromAPI = function fetchDronesFromAP
   return function (dispatch) {
     return fetch(address, { method: 'GET' }).then(function (response) {
       if (!response.ok) {
-        var message = 'Error - ' + response.status + ' - ' + response.statusText;
+        var _message = 'Error - ' + response.status + ' - ' + response.statusText;
         dispatch(dispatchErrorMessage({
           errorMessage: {
-            message: message
+            message: _message
           },
           snackBarOpenState: {
             openState: true
