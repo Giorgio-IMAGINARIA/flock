@@ -47,7 +47,7 @@ export const fetchDronesFromAPI = (objectToSubmit: DroneQueryObject) => {
     ? `api/v0/drones`
     : `/api/v0/drone/${objectToSubmit.droneID}`;
   let address: string = `${getApiAddress()}${route}`;
-  return (dispatch: any): Promise<void> => {
+  return (dispatch: (any)): Promise<void> => {
     return fetch((address: string), { method: 'GET' })
       .then((response: any) => {
         if (!response.ok) {

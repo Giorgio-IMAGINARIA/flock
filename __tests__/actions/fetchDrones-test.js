@@ -12,6 +12,11 @@ type DroneObtainedObject = {
     price: number
 };
 
+type snackBarStateObjectInterface = {
+    errorMessage: { message: string },
+    snackBarOpenState: { openState: boolean }
+};
+
 import { FETCH_DRONES, CHANGE_SNACKBAR } from "../../source/constants/action-types";
 import { dispatchDrones, dispatchErrorMessage, fetchDrones } from "../../source/actions/fetchDrones"
 
@@ -33,7 +38,10 @@ describe('fetchDrones action - all methods work', () => {
         expect(dispatchDrones(dummyDroneObtainedArray)).toEqual(expectedAction)
     });
     it('should create an action to set the snackbar state with an error message by calling dispatchErrorMessage()', () => {
-        const dummyErrorMessage: string = 'dummyErrorMessageText'
+        const dummyErrorMessage: snackBarStateObjectInterface = {
+            errorMessage: { message: 'dummyErrorMessageText' },
+            snackBarOpenState: { openState: true }
+        }
         const expectedAction = {
             type: CHANGE_SNACKBAR, payload: dummyErrorMessage
         }
