@@ -18,7 +18,7 @@ type snackBarStateObjectInterface = {
 };
 
 import { FETCH_DRONES, CHANGE_SNACKBAR } from "../../source/constants/action-types";
-import { dispatchDrones, dispatchErrorMessage, fetchDrones } from "../../source/actions/fetchDrones"
+import { dispatchDrones, dispatchErrorMessage, fetchDrones, fetchDronesFromAPI } from "../../source/actions/fetchDrones"
 
 
 const dummyDroneObtainedArray: Array<DroneObtainedObject> = [{
@@ -47,4 +47,10 @@ describe('fetchDrones action - all methods work', () => {
         }
         expect(dispatchErrorMessage(dummyErrorMessage)).toEqual(expectedAction)
     });
+    it('should correctly execute fetchDrones()', () => {
+        const dummyDroneQueryObjecyPassed: DroneQueryObject = {
+            droneID: 1
+        };
+        expect(fetchDrones(dummyDroneQueryObjecyPassed)).toEqual(expect.any(Function));
+    })
 })
