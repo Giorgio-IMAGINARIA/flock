@@ -47315,11 +47315,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    fetchDrones: function fetchDrones(query) {
+  return { fetchDrones: function fetchDrones(query) {
       return dispatch((0, _fetchDrones2.fetchDrones)(query));
-    }
-  };
+    } };
 };
 
 //Material UI
