@@ -14,7 +14,9 @@ type fetchDronesFunctionObject = {
   fetchDrones: DroneQueryObject => void
 };
 
-type Props = {};
+type Props = {
+  fetchDrones: (DroneQueryObject) => void
+};
 
 const mapDispatchToProps = (dispatch: (((any => void) => void) => void) ): fetchDronesFunctionObject => ({ fetchDrones: (query: DroneQueryObject): void => dispatch(fetchDrones(query)) });
 
@@ -33,10 +35,6 @@ class QueryPanel extends Component<Props> {
   constructor() {
     super();
 
-    this.handleChangeIDText = this.handleChangeIDText.bind(this);
-    this.IDRadioGroupChange = this.IDRadioGroupChange.bind(this);
-    this.fetchDronesFromAPI = this.fetchDronesFromAPI.bind(this);
-
     this.state = {
       IDInputDisabledState: true,
       IDTextFieldValueState: ''
@@ -44,22 +42,22 @@ class QueryPanel extends Component<Props> {
 
   }
 
-  IDRadioGroupChange(evt: any, value: string): void {
+  IDRadioGroupChange = (evt: any, value: string): void => {
     value === 'number'
       ? this.setState({ IDInputDisabledState: false })
       : this.setState({ IDInputDisabledState: true, IDTextFieldValueState: '' });
   }
 
-  isNumeric(str: string): boolean {
+  isNumeric = (str: string): boolean => {
     return /^(0|[1-9][0-9]*)$/.test(str);
   }
 
-  handleChangeIDText(evt, value) {
+  handleChangeIDText = (evt, value) => {
     if (this.isNumeric(value) || value === '')
       this.setState({ IDTextFieldValueState: value });
   }
 
-  fetchDronesFromAPI() {
+  fetchDronesFromAPI = () => {
     let objectToSend: DroneQueryObject = {
       droneID: this.state.IDTextFieldValueState
         ? parseInt(this.state.IDTextFieldValueState)
@@ -68,7 +66,7 @@ class QueryPanel extends Component<Props> {
     this.props.fetchDrones(objectToSend);
   }
 
-  render() {
+  render = () => {
     return (<Paper style={QueryStyle.paperStyle} zDepth={2}>
       <div style={GeneralStyle.headerStyle}>
         <h1 style={GeneralStyle.mainTitle}>

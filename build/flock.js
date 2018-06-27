@@ -47264,8 +47264,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -47332,45 +47330,27 @@ var QueryPanel = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (QueryPanel.__proto__ || Object.getPrototypeOf(QueryPanel)).call(this));
 
-    _this.handleChangeIDText = _this.handleChangeIDText.bind(_this);
-    _this.IDRadioGroupChange = _this.IDRadioGroupChange.bind(_this);
-    _this.fetchDronesFromAPI = _this.fetchDronesFromAPI.bind(_this);
-
-    _this.state = {
-      IDInputDisabledState: true,
-      IDTextFieldValueState: ''
+    _this.IDRadioGroupChange = function (evt, value) {
+      value === 'number' ? _this.setState({ IDInputDisabledState: false }) : _this.setState({ IDInputDisabledState: true, IDTextFieldValueState: '' });
     };
 
-    return _this;
-  }
-
-  _createClass(QueryPanel, [{
-    key: "IDRadioGroupChange",
-    value: function IDRadioGroupChange(evt, value) {
-      value === 'number' ? this.setState({ IDInputDisabledState: false }) : this.setState({ IDInputDisabledState: true, IDTextFieldValueState: '' });
-    }
-  }, {
-    key: "isNumeric",
-    value: function isNumeric(str) {
+    _this.isNumeric = function (str) {
       return (/^(0|[1-9][0-9]*)$/.test(str)
       );
-    }
-  }, {
-    key: "handleChangeIDText",
-    value: function handleChangeIDText(evt, value) {
-      if (this.isNumeric(value) || value === '') this.setState({ IDTextFieldValueState: value });
-    }
-  }, {
-    key: "fetchDronesFromAPI",
-    value: function fetchDronesFromAPI() {
+    };
+
+    _this.handleChangeIDText = function (evt, value) {
+      if (_this.isNumeric(value) || value === '') _this.setState({ IDTextFieldValueState: value });
+    };
+
+    _this.fetchDronesFromAPI = function () {
       var objectToSend = {
-        droneID: this.state.IDTextFieldValueState ? parseInt(this.state.IDTextFieldValueState) : '*'
+        droneID: _this.state.IDTextFieldValueState ? parseInt(_this.state.IDTextFieldValueState) : '*'
       };
-      this.props.fetchDrones(objectToSend);
-    }
-  }, {
-    key: "render",
-    value: function render() {
+      _this.props.fetchDrones(objectToSend);
+    };
+
+    _this.render = function () {
       return _react2.default.createElement(
         _Paper2.default,
         { style: _QueryStyle2.default.paperStyle, zDepth: 2 },
@@ -47411,7 +47391,7 @@ var QueryPanel = function (_Component) {
                 { style: _QueryStyle2.default.doubleRowInternalLeftWrapStyle },
                 _react2.default.createElement(
                   _RadioButton.RadioButtonGroup,
-                  { name: "milestoneSelection", defaultSelected: "all", onChange: this.IDRadioGroupChange },
+                  { name: "milestoneSelection", defaultSelected: "all", onChange: _this.IDRadioGroupChange },
                   _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: "all", label: "All", style: _QueryStyle2.default.radioButtonSpacedStyle }),
                   _react2.default.createElement(_RadioButton.RadioButton, { labelStyle: _GeneralStyle2.default.globalText, iconStyle: _QueryStyle2.default.radioIconStyle, value: "number", label: "ID", style: _QueryStyle2.default.radioButtonSpacedStyle })
                 )
@@ -47419,7 +47399,7 @@ var QueryPanel = function (_Component) {
               _react2.default.createElement(
                 "div",
                 { style: _QueryStyle2.default.doubleRowInternalRightWrapStyle },
-                _react2.default.createElement(_TextField2.default, { disabled: this.state.IDInputDisabledState, inputStyle: _GeneralStyle2.default.globalText, value: this.state.IDTextFieldValueState, fullWidth: true, hintText: "Type the drone ID", floatingLabelText: "Drone ID", floatingLabelStyle: _GeneralStyle2.default.globalText, underlineFocusStyle: _QueryStyle2.default.underlineFocusStyle, type: "text", onChange: this.handleChangeIDText })
+                _react2.default.createElement(_TextField2.default, { disabled: _this.state.IDInputDisabledState, inputStyle: _GeneralStyle2.default.globalText, value: _this.state.IDTextFieldValueState, fullWidth: true, hintText: "Type the drone ID", floatingLabelText: "Drone ID", floatingLabelStyle: _GeneralStyle2.default.globalText, underlineFocusStyle: _QueryStyle2.default.underlineFocusStyle, type: "text", onChange: _this.handleChangeIDText })
               )
             )
           ),
@@ -47431,15 +47411,22 @@ var QueryPanel = function (_Component) {
               null,
               _react2.default.createElement(
                 _FloatingActionButton2.default,
-                { backgroundColor: "#F4511E", mini: true, onMouseDown: this.fetchDronesFromAPI },
+                { backgroundColor: "#F4511E", mini: true, onMouseDown: _this.fetchDronesFromAPI },
                 _react2.default.createElement(_chevronRight2.default, null)
               )
             )
           )
         )
       );
-    }
-  }]);
+    };
+
+    _this.state = {
+      IDInputDisabledState: true,
+      IDTextFieldValueState: ''
+    };
+
+    return _this;
+  }
 
   return QueryPanel;
 }(_react.Component);
