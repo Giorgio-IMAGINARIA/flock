@@ -1,6 +1,6 @@
 // @flow
 // React
-import React from 'react';
+import React, { Component } from 'react';
 // REACT-REDUX
 import { connect } from "react-redux";
 // REDUX ACTIONS
@@ -14,6 +14,8 @@ type fetchDronesFunctionObject = {
   fetchDrones: DroneQueryObject => void
 };
 
+type Props = {};
+
 const mapDispatchToProps = (dispatch: (((any => void) => void) => void) ): fetchDronesFunctionObject => ({ fetchDrones: (query: DroneQueryObject): void => dispatch(fetchDrones(query)) });
 
 //Material UI
@@ -26,7 +28,7 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
 
-class QueryPanel extends React.Component {
+class QueryPanel extends Component<Props> {
 
   constructor() {
     super();

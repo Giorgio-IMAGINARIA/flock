@@ -47324,8 +47324,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 // Style Modules
 
-var QueryPanel = function (_React$Component) {
-  _inherits(QueryPanel, _React$Component);
+var QueryPanel = function (_Component) {
+  _inherits(QueryPanel, _Component);
 
   function QueryPanel() {
     _classCallCheck(this, QueryPanel);
@@ -47442,7 +47442,7 @@ var QueryPanel = function (_React$Component) {
   }]);
 
   return QueryPanel;
-}(_react2.default.Component);
+}(_react.Component);
 
 var QueryPanelToExport = (0, _reactRedux.connect)(null, mapDispatchToProps)(QueryPanel);
 
