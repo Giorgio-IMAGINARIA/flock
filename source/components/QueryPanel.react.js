@@ -18,6 +18,11 @@ type Props = {
   fetchDrones: (DroneQueryObject) => void
 };
 
+type State = {
+  IDInputDisabledState: boolean,
+  IDTextFieldValueState: string
+};
+
 const mapDispatchToProps = (dispatch: (((any => void) => void) => void) ): fetchDronesFunctionObject => ({ fetchDrones: (query: DroneQueryObject): void => dispatch(fetchDrones(query)) });
 
 //Material UI
@@ -30,11 +35,10 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
 
-class QueryPanel extends Component<Props> {
+class QueryPanel extends Component<Props, State> {
 
   constructor() {
     super();
-
     this.state = {
       IDInputDisabledState: true,
       IDTextFieldValueState: ''
