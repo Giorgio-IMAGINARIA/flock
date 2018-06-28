@@ -35,7 +35,7 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import GeneralStyle from '../styles/GeneralStyle';
 import QueryStyle from '../styles/QueryStyle';
 
-class QueryPanel extends Component<Props, State> {
+export class QueryPanel extends Component<Props, State> {
 
   constructor() {
     super();
@@ -56,7 +56,7 @@ class QueryPanel extends Component<Props, State> {
     return /^(0|[1-9][0-9]*)$/.test(str);
   }
 
-  handleChangeIDText = (evt, value) => {
+  handleChangeIDText = (evt: Event, value: string) => {
     if (this.isNumeric(value) || value === '')
       this.setState({ IDTextFieldValueState: value });
   }
